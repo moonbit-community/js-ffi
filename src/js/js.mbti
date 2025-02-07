@@ -1,0 +1,98 @@
+package rami3l/js-ffi/js
+
+// Values
+fn async_all[T](Array[() -> T!]) -> Array[T]!
+
+let async_iterator : Symbol
+
+fn async_run(() -> Unit) -> Unit
+
+fn async_test(() -> Unit!) -> Unit
+
+fn async_unwrap[T](() -> T!) -> Promise[Value]
+
+fn async_wrap(() -> Promise[Value]) -> Value!
+
+let globalThis : Value
+
+let iterator : Symbol
+
+fn require(String, keys~ : Array[String] = ..) -> Value
+
+fn suspend[T, E : Error](((T) -> Unit, (E) -> Unit) -> Unit) -> T!E
+
+// Types and methods
+pub type! Error_ Value
+impl Error_ {
+  cause(Self) -> Value?
+  wrap[T](() -> Value, (Value) -> T) -> T!Self
+}
+impl Show for Error_
+
+type Nullable
+impl Nullable {
+  from_option[T](T?) -> Self[T]
+  get_exn[T](Self[T]) -> T
+  is_null[T](Self[T]) -> Bool
+  null[T]() -> Self[T]
+  to_option[T](Self[T]) -> T?
+}
+
+pub type Object Value
+impl Object {
+  extend_iter[K, V](Self, Iter[(K, V)]) -> Unit
+  extend_iter2[K, V](Self, Iter2[K, V]) -> Unit
+  from_iter[K, V](Iter[(K, V)]) -> Self
+  from_iter2[K, V](Iter2[K, V]) -> Self
+  from_value(Value) -> Self
+  new() -> Self
+  op_get[K, V](Self, K) -> V
+  op_set[K, V](Self, K, V) -> Unit
+}
+
+pub type Promise
+
+type Symbol
+impl Symbol {
+  make() -> Self
+  make_with_number(Double) -> Self
+  make_with_string(String) -> Self
+  make_with_string_js(String) -> Self
+}
+
+pub type Value
+impl Value {
+  apply[Arg, Result](Self, Array[Arg]) -> Result
+  apply_with_index[Arg, Result](Self, Int, Array[Arg]) -> Result
+  apply_with_string[Arg, Result](Self, String, Array[Arg]) -> Result
+  apply_with_symbol[Arg, Result](Self, Symbol, Array[Arg]) -> Result
+  cast[T](Self) -> T
+  cast_from[T](T) -> Self
+  extends(Self, Self) -> Self
+  from_json(Json) -> Self!
+  from_json_string(String) -> Self!
+  get_with_index[T](Self, Int) -> T
+  get_with_string[T](Self, String) -> T
+  get_with_symbol[T](Self, Symbol) -> T
+  is_bool(Self) -> Bool
+  is_null(Self) -> Bool
+  is_number(Self) -> Bool
+  is_object(Self) -> Bool
+  is_string(Self) -> Bool
+  is_symbol(Self) -> Bool
+  is_undefined(Self) -> Bool
+  new[Arg, Result](Self, Array[Arg]) -> Result
+  new_with_index[Arg, Result](Self, Int, Array[Arg]) -> Result
+  new_with_string[Arg, Result](Self, String, Array[Arg]) -> Result
+  new_with_symbol[Arg, Result](Self, Symbol, Array[Arg]) -> Result
+  set_with_index[T](Self, Int, T) -> Unit
+  set_with_string[T](Self, String, T) -> Unit
+  set_with_symbol[T](Self, Symbol, T) -> Unit
+  to_string(Self) -> String
+}
+
+// Type aliases
+pub typealias AsyncOp = () -> Promise[Value]
+
+// Traits
+
