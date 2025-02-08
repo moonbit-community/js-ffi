@@ -31,7 +31,10 @@ extern "js" fn Error_::wrap_ffi(
   #| (op, on_ok, on_error) => { try { on_ok(op()); } catch (e) { on_error(e); } }
 
 ///|
-pub fn Error_::wrap[T](op : () -> Value, map_ok : (Value) -> T) -> T!Error_ {
+pub fn Error_::wrap[T](
+  op : () -> Value,
+  map_ok~ : (Value) -> T = Value::cast
+) -> T!Error_ {
   let mut res : Result[Value, Error_] = Ok(Value::undefined())
   Error_::wrap_ffi(op, fn(v) { res = Ok(v) }, fn(e) { res = Err(Error_(e)) })
   guard let Ok(v) = res else { Err(e) => raise e }

@@ -127,7 +127,7 @@ pub fn Value::from_json!(self : Json) -> Value {
 
 ///|
 pub fn Value::from_json_string!(str : String) -> Value {
-  Error_::wrap!(fn() { Value::from_json_string_ffi(str) }, fn(v) { v })
+  Error_::wrap!(fn() { Value::from_json_string_ffi(str) })
 }
 
 ///|
