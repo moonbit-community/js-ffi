@@ -1,3 +1,4 @@
+///|
 test "Object::extend_object" {
   let obj = @js.Object(@json.from_json!({ "a": 1, "b": 2, "c": 3 }))
   let obj1 = @js.Object(@json.from_json!({ "b": [6, 7], "d": 44, "a": 55 }))
