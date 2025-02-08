@@ -23,28 +23,28 @@ pub(open) trait Cast {
 pub impl Cast for String with into(value) { value.cast() }
 
 ///|
-pub impl Cast for String with from(value) { cast_from(value) }
+pub impl Cast for String with from(value) { Value::cast_from(value) }
 
 ///|
 pub impl Cast for Int with into(value) { value.cast() }
 
 ///|
-pub impl Cast for Int with from(value) { cast_from(value) }
+pub impl Cast for Int with from(value) { Value::cast_from(value) }
 
 ///|
 pub impl Cast for Double with into(value) { value.cast() }
 
 ///|
-pub impl Cast for Double with from(value) { cast_from(value) }
+pub impl Cast for Double with from(value) { Value::cast_from(value) }
 
 ///|
 pub impl Cast for Bool with into(value) { value.cast() }
 
 ///|
-pub impl Cast for Bool with from(value) { cast_from(value) }
+pub impl Cast for Bool with from(value) { Value::cast_from(value) }
 
 ///|
 pub impl[A] Cast for Array[A] with into(value) { value.cast() }
 
 ///|
-pub impl[A] Cast for Array[A] with from(value) { cast_from(value) }
+pub impl[A] Cast for Array[A] with from(value) { Value::cast_from(value) }
