@@ -5,7 +5,8 @@ pub type Object Value
 pub extern "js" fn Object::new() -> Object = "() => new Object()"
 
 ///|
-pub extern "js" fn Object::from_value(value : Value) -> Object = "#| (value) => new Object(value)"
+pub extern "js" fn Object::from_value(value : Value) -> Object =
+  #| (value) => new Object(value)
 
 ///|
 pub extern "js" fn Object::extend_object(self : Object, obj : Object) -> Object =
