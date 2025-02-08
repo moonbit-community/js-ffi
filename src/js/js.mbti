@@ -63,100 +63,100 @@ impl Symbol {
 
 type Union2[_, _]
 impl Union2 {
-  from1[A : Cast, B](A) -> Self[A, B]
-  from2[A, B : Cast](B) -> Self[A, B]
-  to1[A : Cast, B](Self[A, B]) -> A?
-  to2[A, B : Cast](Self[A, B]) -> B?
+  from0[A : Cast, B](A) -> Self[A, B]
+  from1[A, B : Cast](B) -> Self[A, B]
+  to0[A : Cast, B](Self[A, B]) -> A?
+  to1[A, B : Cast](Self[A, B]) -> B?
 }
 
 type Union3[_, _, _]
 impl Union3 {
-  from1[A : Cast, B, C](A) -> Self[A, B, C]
-  from2[A, B : Cast, C](B) -> Self[A, B, C]
-  from3[A, B, C : Cast](C) -> Self[A, B, C]
-  to1[A : Cast, B, C](Self[A, B, C]) -> A?
-  to2[A, B : Cast, C](Self[A, B, C]) -> B?
-  to3[A, B, C : Cast](Self[A, B, C]) -> C?
+  from0[A : Cast, B, C](A) -> Self[A, B, C]
+  from1[A, B : Cast, C](B) -> Self[A, B, C]
+  from2[A, B, C : Cast](C) -> Self[A, B, C]
+  to0[A : Cast, B, C](Self[A, B, C]) -> A?
+  to1[A, B : Cast, C](Self[A, B, C]) -> B?
+  to2[A, B, C : Cast](Self[A, B, C]) -> C?
 }
 
 type Union4[_, _, _, _]
 impl Union4 {
-  from1[A : Cast, B, C, D](A) -> Self[A, B, C, D]
-  from2[A, B : Cast, C, D](B) -> Self[A, B, C, D]
-  from3[A, B, C : Cast, D](C) -> Self[A, B, C, D]
-  from4[A, B, C, D : Cast](D) -> Self[A, B, C, D]
-  to1[A : Cast, B, C, D](Self[A, B, C, D]) -> A?
-  to2[A, B : Cast, C, D](Self[A, B, C, D]) -> B?
-  to3[A, B, C : Cast, D](Self[A, B, C, D]) -> C?
-  to4[A, B, C, D : Cast](Self[A, B, C, D]) -> D?
+  from0[A : Cast, B, C, D](A) -> Self[A, B, C, D]
+  from1[A, B : Cast, C, D](B) -> Self[A, B, C, D]
+  from2[A, B, C : Cast, D](C) -> Self[A, B, C, D]
+  from3[A, B, C, D : Cast](D) -> Self[A, B, C, D]
+  to0[A : Cast, B, C, D](Self[A, B, C, D]) -> A?
+  to1[A, B : Cast, C, D](Self[A, B, C, D]) -> B?
+  to2[A, B, C : Cast, D](Self[A, B, C, D]) -> C?
+  to3[A, B, C, D : Cast](Self[A, B, C, D]) -> D?
 }
 
 type Union5[_, _, _, _, _]
 impl Union5 {
-  from1[A : Cast, B, C, D, E](A) -> Self[A, B, C, D, E]
-  from2[A, B : Cast, C, D, E](B) -> Self[A, B, C, D, E]
-  from3[A, B, C : Cast, D, E](C) -> Self[A, B, C, D, E]
-  from4[A, B, C, D : Cast, E](D) -> Self[A, B, C, D, E]
-  from5[A, B, C, D, E : Cast](E) -> Self[A, B, C, D, E]
-  to1[A : Cast, B, C, D, E](Self[A, B, C, D, E]) -> A?
-  to2[A, B : Cast, C, D, E](Self[A, B, C, D, E]) -> B?
-  to3[A, B, C : Cast, D, E](Self[A, B, C, D, E]) -> C?
-  to4[A, B, C, D : Cast, E](Self[A, B, C, D, E]) -> D?
-  to5[A, B, C, D, E : Cast](Self[A, B, C, D, E]) -> E?
+  from0[A : Cast, B, C, D, E](A) -> Self[A, B, C, D, E]
+  from1[A, B : Cast, C, D, E](B) -> Self[A, B, C, D, E]
+  from2[A, B, C : Cast, D, E](C) -> Self[A, B, C, D, E]
+  from3[A, B, C, D : Cast, E](D) -> Self[A, B, C, D, E]
+  from4[A, B, C, D, E : Cast](E) -> Self[A, B, C, D, E]
+  to0[A : Cast, B, C, D, E](Self[A, B, C, D, E]) -> A?
+  to1[A, B : Cast, C, D, E](Self[A, B, C, D, E]) -> B?
+  to2[A, B, C : Cast, D, E](Self[A, B, C, D, E]) -> C?
+  to3[A, B, C, D : Cast, E](Self[A, B, C, D, E]) -> D?
+  to4[A, B, C, D, E : Cast](Self[A, B, C, D, E]) -> E?
 }
 
 type Union6[_, _, _, _, _, _]
 impl Union6 {
-  from1[A : Cast, B, C, D, E, F](A) -> Self[A, B, C, D, E, F]
-  from2[A, B : Cast, C, D, E, F](B) -> Self[A, B, C, D, E, F]
-  from3[A, B, C : Cast, D, E, F](C) -> Self[A, B, C, D, E, F]
-  from4[A, B, C, D : Cast, E, F](D) -> Self[A, B, C, D, E, F]
-  from5[A, B, C, D, E : Cast, F](E) -> Self[A, B, C, D, E, F]
-  from6[A, B, C, D, E, F : Cast](F) -> Self[A, B, C, D, E, F]
-  to1[A : Cast, B, C, D, E, F](Self[A, B, C, D, E, F]) -> A?
-  to2[A, B : Cast, C, D, E, F](Self[A, B, C, D, E, F]) -> B?
-  to3[A, B, C : Cast, D, E, F](Self[A, B, C, D, E, F]) -> C?
-  to4[A, B, C, D : Cast, E, F](Self[A, B, C, D, E, F]) -> D?
-  to5[A, B, C, D, E : Cast, F](Self[A, B, C, D, E, F]) -> E?
-  to6[A, B, C, D, E, F : Cast](Self[A, B, C, D, E, F]) -> F?
+  from0[A : Cast, B, C, D, E, F](A) -> Self[A, B, C, D, E, F]
+  from1[A, B : Cast, C, D, E, F](B) -> Self[A, B, C, D, E, F]
+  from2[A, B, C : Cast, D, E, F](C) -> Self[A, B, C, D, E, F]
+  from3[A, B, C, D : Cast, E, F](D) -> Self[A, B, C, D, E, F]
+  from4[A, B, C, D, E : Cast, F](E) -> Self[A, B, C, D, E, F]
+  from5[A, B, C, D, E, F : Cast](F) -> Self[A, B, C, D, E, F]
+  to0[A : Cast, B, C, D, E, F](Self[A, B, C, D, E, F]) -> A?
+  to1[A, B : Cast, C, D, E, F](Self[A, B, C, D, E, F]) -> B?
+  to2[A, B, C : Cast, D, E, F](Self[A, B, C, D, E, F]) -> C?
+  to3[A, B, C, D : Cast, E, F](Self[A, B, C, D, E, F]) -> D?
+  to4[A, B, C, D, E : Cast, F](Self[A, B, C, D, E, F]) -> E?
+  to5[A, B, C, D, E, F : Cast](Self[A, B, C, D, E, F]) -> F?
 }
 
 type Union7[_, _, _, _, _, _, _]
 impl Union7 {
-  from1[A : Cast, B, C, D, E, F, G](A) -> Self[A, B, C, D, E, F, G]
-  from2[A, B : Cast, C, D, E, F, G](B) -> Self[A, B, C, D, E, F, G]
-  from3[A, B, C : Cast, D, E, F, G](C) -> Self[A, B, C, D, E, F, G]
-  from4[A, B, C, D : Cast, E, F, G](D) -> Self[A, B, C, D, E, F, G]
-  from5[A, B, C, D, E : Cast, F, G](E) -> Self[A, B, C, D, E, F, G]
-  from6[A, B, C, D, E, F : Cast, G](F) -> Self[A, B, C, D, E, F, G]
-  from7[A, B, C, D, E, F, G : Cast](G) -> Self[A, B, C, D, E, F, G]
-  to1[A : Cast, B, C, D, E, F, G](Self[A, B, C, D, E, F, G]) -> A?
-  to2[A, B : Cast, C, D, E, F, G](Self[A, B, C, D, E, F, G]) -> B?
-  to3[A, B, C : Cast, D, E, F, G](Self[A, B, C, D, E, F, G]) -> C?
-  to4[A, B, C, D : Cast, E, F, G](Self[A, B, C, D, E, F, G]) -> D?
-  to5[A, B, C, D, E : Cast, F, G](Self[A, B, C, D, E, F, G]) -> E?
-  to6[A, B, C, D, E, F : Cast, G](Self[A, B, C, D, E, F, G]) -> F?
-  to7[A, B, C, D, E, F, G : Cast](Self[A, B, C, D, E, F, G]) -> G?
+  from0[A : Cast, B, C, D, E, F, G](A) -> Self[A, B, C, D, E, F, G]
+  from1[A, B : Cast, C, D, E, F, G](B) -> Self[A, B, C, D, E, F, G]
+  from2[A, B, C : Cast, D, E, F, G](C) -> Self[A, B, C, D, E, F, G]
+  from3[A, B, C, D : Cast, E, F, G](D) -> Self[A, B, C, D, E, F, G]
+  from4[A, B, C, D, E : Cast, F, G](E) -> Self[A, B, C, D, E, F, G]
+  from5[A, B, C, D, E, F : Cast, G](F) -> Self[A, B, C, D, E, F, G]
+  from6[A, B, C, D, E, F, G : Cast](G) -> Self[A, B, C, D, E, F, G]
+  to0[A : Cast, B, C, D, E, F, G](Self[A, B, C, D, E, F, G]) -> A?
+  to1[A, B : Cast, C, D, E, F, G](Self[A, B, C, D, E, F, G]) -> B?
+  to2[A, B, C : Cast, D, E, F, G](Self[A, B, C, D, E, F, G]) -> C?
+  to3[A, B, C, D : Cast, E, F, G](Self[A, B, C, D, E, F, G]) -> D?
+  to4[A, B, C, D, E : Cast, F, G](Self[A, B, C, D, E, F, G]) -> E?
+  to5[A, B, C, D, E, F : Cast, G](Self[A, B, C, D, E, F, G]) -> F?
+  to6[A, B, C, D, E, F, G : Cast](Self[A, B, C, D, E, F, G]) -> G?
 }
 
 type Union8[_, _, _, _, _, _, _, _]
 impl Union8 {
-  from1[A : Cast, B, C, D, E, F, G, H](A) -> Self[A, B, C, D, E, F, G, H]
-  from2[A, B : Cast, C, D, E, F, G, H](B) -> Self[A, B, C, D, E, F, G, H]
-  from3[A, B, C : Cast, D, E, F, G, H](C) -> Self[A, B, C, D, E, F, G, H]
-  from4[A, B, C, D : Cast, E, F, G, H](D) -> Self[A, B, C, D, E, F, G, H]
-  from5[A, B, C, D, E : Cast, F, G, H](E) -> Self[A, B, C, D, E, F, G, H]
-  from6[A, B, C, D, E, F : Cast, G, H](F) -> Self[A, B, C, D, E, F, G, H]
-  from7[A, B, C, D, E, F, G : Cast, H](G) -> Self[A, B, C, D, E, F, G, H]
-  from8[A, B, C, D, E, F, G, H : Cast](H) -> Self[A, B, C, D, E, F, G, H]
-  to1[A : Cast, B, C, D, E, F, G, H](Self[A, B, C, D, E, F, G, H]) -> A?
-  to2[A, B : Cast, C, D, E, F, G, H](Self[A, B, C, D, E, F, G, H]) -> B?
-  to3[A, B, C : Cast, D, E, F, G, H](Self[A, B, C, D, E, F, G, H]) -> C?
-  to4[A, B, C, D : Cast, E, F, G, H](Self[A, B, C, D, E, F, G, H]) -> D?
-  to5[A, B, C, D, E : Cast, F, G, H](Self[A, B, C, D, E, F, G, H]) -> E?
-  to6[A, B, C, D, E, F : Cast, G, H](Self[A, B, C, D, E, F, G, H]) -> F?
-  to7[A, B, C, D, E, F, G : Cast, H](Self[A, B, C, D, E, F, G, H]) -> G?
-  to8[A, B, C, D, E, F, G, H : Cast](Self[A, B, C, D, E, F, G, H]) -> H?
+  from0[A : Cast, B, C, D, E, F, G, H](A) -> Self[A, B, C, D, E, F, G, H]
+  from1[A, B : Cast, C, D, E, F, G, H](B) -> Self[A, B, C, D, E, F, G, H]
+  from2[A, B, C : Cast, D, E, F, G, H](C) -> Self[A, B, C, D, E, F, G, H]
+  from3[A, B, C, D : Cast, E, F, G, H](D) -> Self[A, B, C, D, E, F, G, H]
+  from4[A, B, C, D, E : Cast, F, G, H](E) -> Self[A, B, C, D, E, F, G, H]
+  from5[A, B, C, D, E, F : Cast, G, H](F) -> Self[A, B, C, D, E, F, G, H]
+  from6[A, B, C, D, E, F, G : Cast, H](G) -> Self[A, B, C, D, E, F, G, H]
+  from7[A, B, C, D, E, F, G, H : Cast](H) -> Self[A, B, C, D, E, F, G, H]
+  to0[A : Cast, B, C, D, E, F, G, H](Self[A, B, C, D, E, F, G, H]) -> A?
+  to1[A, B : Cast, C, D, E, F, G, H](Self[A, B, C, D, E, F, G, H]) -> B?
+  to2[A, B, C : Cast, D, E, F, G, H](Self[A, B, C, D, E, F, G, H]) -> C?
+  to3[A, B, C, D : Cast, E, F, G, H](Self[A, B, C, D, E, F, G, H]) -> D?
+  to4[A, B, C, D, E : Cast, F, G, H](Self[A, B, C, D, E, F, G, H]) -> E?
+  to5[A, B, C, D, E, F : Cast, G, H](Self[A, B, C, D, E, F, G, H]) -> F?
+  to6[A, B, C, D, E, F, G : Cast, H](Self[A, B, C, D, E, F, G, H]) -> G?
+  to7[A, B, C, D, E, F, G, H : Cast](Self[A, B, C, D, E, F, G, H]) -> H?
 }
 
 pub type Value
