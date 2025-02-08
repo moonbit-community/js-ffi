@@ -18,3 +18,33 @@ pub(open) trait Cast {
 //
 // But if some one implements the `Cast` trait for a type that not an abstract type, 
 // then the default implementation is not type-safe.
+
+///|
+pub impl Cast for String with into(value) { value.cast() }
+
+///|
+pub impl Cast for String with from(value) { cast_from(value) }
+
+///|
+pub impl Cast for Int with into(value) { value.cast() }
+
+///|
+pub impl Cast for Int with from(value) { cast_from(value) }
+
+///|
+pub impl Cast for Double with into(value) { value.cast() }
+
+///|
+pub impl Cast for Double with from(value) { cast_from(value) }
+
+///|
+pub impl Cast for Bool with into(value) { value.cast() }
+
+///|
+pub impl Cast for Bool with from(value) { cast_from(value) }
+
+///|
+pub impl[A] Cast for Array[A] with into(value) { value.cast() }
+
+///|
+pub impl[A] Cast for Array[A] with from(value) { cast_from(value) }
