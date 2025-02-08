@@ -42,6 +42,7 @@ pub type Object Value
 impl Object {
   extend_iter[K, V](Self, Iter[(K, V)]) -> Unit
   extend_iter2[K, V](Self, Iter2[K, V]) -> Unit
+  extend_object(Self, Self) -> Self
   from_iter[K, V](Iter[(K, V)]) -> Self
   from_iter2[K, V](Iter2[K, V]) -> Self
   from_value(Value) -> Self
