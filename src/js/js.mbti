@@ -25,7 +25,7 @@ fn suspend[T, E : Error](((T) -> Unit, (E) -> Unit) -> Unit) -> T!E
 pub type! Error_ Value
 impl Error_ {
   cause(Self) -> Value?
-  wrap[T](() -> Value, (Value) -> T) -> T!Self
+  wrap[T](() -> Value, map_ok~ : (Value) -> T = ..) -> T!Self
 }
 impl Show for Error_
 
