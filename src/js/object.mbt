@@ -8,6 +8,10 @@ pub extern "js" fn Object::new() -> Object = "() => new Object()"
 pub extern "js" fn Object::from_value(value : Value) -> Object = "#| (value) => new Object(value)"
 
 ///|
+pub extern "js" fn Object::extend_object(self : Object, obj : Object) -> Object =
+  #| (self, obj) => ({ ...self, ...obj })
+
+///|
 pub fn Object::extend_iter[K, V](self : Object, it : Iter[(K, V)]) -> Unit {
   for p in it {
     self[p.0] = p.1
