@@ -20,31 +20,72 @@ pub(open) trait Cast {
 // then the default implementation is not type-safe.
 
 ///|
-pub impl Cast for String with into(value) { value.cast() }
+extern "js" fn checked_cast_string_ffi(value : Value) -> Nullable[String] =
+  #| (x) => typeof x === 'string' ? x : null
+
+///|
+extern "js" fn checked_cast_int_ffi(value : Value) -> Nullable[Int] =
+  #| (x) => typeof x === 'number' && Number.isInteger(x) ? x : null
+
+///|
+extern "js" fn checked_cast_double_ffi(value : Value) -> Nullable[Double] =
+  #| (x) => typeof x === 'number' ? x : null
+
+///|
+extern "js" fn checked_cast_bool_ffi(value : Value) -> Nullable[Bool] =
+  #| (x) => typeof x === 'boolean' ? x : null
+
+///|
+extern "js" fn checked_cast_array_ffi(value : Value) -> Nullable[Array[Value]] =
+  #| (x) => Array.isArray(x) ? x : null
+
+///|
+pub impl Cast for String with into(value) {
+  checked_cast_string_ffi(value).to_option()
+}
 
 ///|
 pub impl Cast for String with from(value) { Value::cast_from(value) }
 
 ///|
-pub impl Cast for Int with into(value) { value.cast() }
+pub impl Cast for Int with into(value) {
+  checked_cast_int_ffi(value).to_option()
+}
 
 ///|
 pub impl Cast for Int with from(value) { Value::cast_from(value) }
 
 ///|
-pub impl Cast for Double with into(value) { value.cast() }
+pub impl Cast for Double with into(value) {
+  checked_cast_double_ffi(value).to_option()
+}
 
 ///|
 pub impl Cast for Double with from(value) { Value::cast_from(value) }
 
 ///|
-pub impl Cast for Bool with into(value) { value.cast() }
+pub impl Cast for Bool with into(value) {
+  checked_cast_bool_ffi(value).to_option()
+}
 
 ///|
 pub impl Cast for Bool with from(value) { Value::cast_from(value) }
 
 ///|
-pub impl[A] Cast for Array[A] with into(value) { value.cast() }
+pub impl[A : Cast] Cast for Array[A] with into(value) {
+  checked_cast_array_ffi(value)
+  .to_option()
+  .bind(fn(arr) {
+    let is_type_a = fn(elem) { not((Cast::into(elem) : A?).is_empty()) }
+    if arr.iter().all(is_type_a) {
+      Some(Value::cast_from(arr).cast())
+    } else {
+      None
+    }
+  })
+}
 
 ///|
-pub impl[A] Cast for Array[A] with from(value) { Value::cast_from(value) }
+pub impl[A : Cast] Cast for Array[A] with from(value) {
+  Value::cast_from(value)
+}
