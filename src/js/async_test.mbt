@@ -14,6 +14,7 @@ async fn op3() -> String? {
   None
 }
 
+///|
 test "async_unwrap" {
   @js.async_test(async fn!() {
     let res = @js.async_wrap!!(fn() { @js.async_unwrap(async fn() { op1!!() }) })
