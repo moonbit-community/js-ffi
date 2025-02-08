@@ -29,7 +29,7 @@ impl Error_ {
 }
 impl Show for Error_
 
-type Nullable
+type Nullable[_]
 impl Nullable {
   from_option[T](T?) -> Self[T]
   get_exn[T](Self[T]) -> T
@@ -50,7 +50,7 @@ impl Object {
   op_set[K, V](Self, K, V) -> Unit
 }
 
-pub type Promise
+pub type Promise[_]
 
 type Symbol
 impl Symbol {
