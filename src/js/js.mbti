@@ -88,8 +88,12 @@ impl Value {
   set_with_index[T](Self, Int, T) -> Unit
   set_with_string[T](Self, String, T) -> Unit
   set_with_symbol[T](Self, Symbol, T) -> Unit
+  to_json(Self) -> Json!
+  to_json_string(Self) -> String!
   to_string(Self) -> String
 }
+impl Show for Value
+impl @moonbitlang/core/json.FromJson for Value
 
 // Type aliases
 pub typealias AsyncOp = () -> Promise[Value]

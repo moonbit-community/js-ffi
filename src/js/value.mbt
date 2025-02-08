@@ -11,7 +11,7 @@ pub fn Value::cast[T](self : Value) -> T = "%identity"
 pub extern "js" fn Value::to_string(self : Value) -> String = "(self) => self.toString()"
 
 ///|
-impl Show for Value with output(self, logger) {
+pub impl Show for Value with output(self, logger) {
   logger.write_string(self.to_string())
 }
 
@@ -121,8 +121,33 @@ pub fn Value::new_with_index[Arg, Result](
 }
 
 ///|
-pub fn Value::from_json!(self : Json) -> Value {
-  Value::from_json_string!(self.stringify())
+pub fn Value::from_json!(json : Json) -> Value {
+  @json.from_json!(json)
+}
+
+///|
+pub impl @json.FromJson for Value with from_json(json : Json, path) {
+  match json {
+    String(s) => Value::cast_from(s)
+    Number(n) => Value::cast_from(n)
+    False => Value::cast_from(false)
+    True => Value::cast_from(true)
+    Null => Value::null()
+    Array(xs) => {
+      let acc = Array::new(capacity=xs.length())
+      for x in xs {
+        acc.push((@json.from_json!(x, path~) : Value))
+      }
+      Value::cast_from(acc)
+    }
+    Object(kvs) => {
+      let acc = Object::new()
+      for k, v in kvs {
+        acc._.set_with_string(k, (@json.from_json!(v, path~) : Value))
+      }
+      acc._
+    }
+  }
 }
 
 ///|
@@ -132,6 +157,20 @@ pub fn Value::from_json_string!(str : String) -> Value {
 
 ///|
 extern "js" fn Value::from_json_string_ffi(str : String) -> Value = "JSON.parse"
+
+///|
+pub fn Value::to_json_string!(self : Value) -> String {
+  Error_::wrap!(fn() { self.to_json_string_ffi() })
+}
+
+///|
+pub fn Value::to_json!(self : Value) -> Json {
+  @json.parse!(self.to_json_string!())
+}
+
+///|
+extern "js" fn Value::to_json_string_ffi(self : Value) -> Value =
+  #| (self) => JSON.stringify(self)
 
 ///|
 pub extern "js" fn is_bool(self : Value) -> Bool =
