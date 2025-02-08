@@ -202,9 +202,9 @@ pub(open) trait Cast {
   into(Value) -> Self?
   from(Self) -> Value
 }
-
 impl Cast for Bool
 impl Cast for Int
 impl Cast for Double
 impl Cast for String
 impl[A] Cast for Array[A]
+
