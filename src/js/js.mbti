@@ -9,9 +9,9 @@ fn async_run(() -> Unit) -> Unit
 
 fn async_test(() -> Unit!) -> Unit
 
-fn async_unwrap[T](() -> T!) -> Promise[Value]
+fn async_unwrap[T](() -> T!) -> Promise
 
-fn async_wrap(() -> Promise[Value]) -> Value!
+fn async_wrap(() -> Promise) -> Value!
 
 let globalThis : Value
 
@@ -60,7 +60,7 @@ impl Optional {
   undefined[T]() -> Self[T]
 }
 
-pub type Promise[_]
+pub type Promise
 
 type Symbol
 impl Symbol {
@@ -204,7 +204,7 @@ impl Show for Value
 impl @moonbitlang/core/json.FromJson for Value
 
 // Type aliases
-pub typealias AsyncOp = () -> Promise[Value]
+pub typealias AsyncOp = () -> Promise
 
 // Traits
 pub(open) trait Cast {
