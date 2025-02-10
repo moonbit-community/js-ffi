@@ -51,6 +51,15 @@ impl Object {
   op_set[K, V](Self, K, V) -> Unit
 }
 
+type Optional[_]
+impl Optional {
+  from_option[T](T?) -> Self[T]
+  get_exn[T](Self[T]) -> T
+  is_undefined[T](Self[T]) -> Bool
+  to_option[T](Self[T]) -> T?
+  undefined[T]() -> Self[T]
+}
+
 pub type Promise[_]
 
 type Symbol
