@@ -7,10 +7,10 @@ pub async fn suspend[T, E : Error](
 pub fn async_run(f : async () -> Unit) -> Unit = "%async.run"
 
 ///|
-pub type Promise[_]
+pub type Promise
 
 ///|
-pub typealias AsyncOp = () -> Promise[Value]
+pub typealias AsyncOp = () -> Promise
 
 ///|
 extern "js" fn async_wrap_ffi(
@@ -25,18 +25,18 @@ pub async fn async_wrap(op : AsyncOp) -> Value! {
 }
 
 ///|
-extern "js" fn async_unwrap_ffi(op : async () -> Value!) -> Promise[Value] =
+extern "js" fn async_unwrap_ffi(op : async () -> Value!) -> Promise =
   #| (op) => new Promise((k, ke) => op(k, ke))
 
 ///|
-pub fn async_unwrap[T](op : async () -> T!) -> Promise[Value] {
+pub fn async_unwrap[T](op : async () -> T!) -> Promise {
   async_unwrap_ffi(fn() { Value::cast_from(op!!()) })
 }
 
 ///|
 /// # Note
-/// The return type is guaranteed to be a `Promise[Array[Value]]`, but we omit that detail for simplicity.
-extern "js" fn Promise::all_ffi(ops : Array[Promise[Value]]) -> Promise[Value] = "(ops) => Promise.all(ops)"
+/// The return type is guaranteed to be a `Promise` of an `Array`, but we omit that detail for simplicity.
+extern "js" fn Promise::all_ffi(ops : Array[Promise]) -> Promise = "(ops) => Promise.all(ops)"
 
 ///|
 async fn async_all_raw!(ops : Array[async () -> Value!]) -> Array[Value] {
