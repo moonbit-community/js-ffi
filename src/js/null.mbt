@@ -1,5 +1,5 @@
 ///|
-type Nullable[_]
+extern type Nullable[_]
 
 ///|
 pub fn Nullable::is_null[T](self : Nullable[T]) -> Bool {

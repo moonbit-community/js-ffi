@@ -7,7 +7,7 @@ pub async fn suspend[T, E : Error](
 pub fn async_run(f : async () -> Unit) -> Unit = "%async.run"
 
 ///|
-pub type Promise
+pub extern type Promise
 
 ///|
 pub typealias AsyncOp = () -> Promise
