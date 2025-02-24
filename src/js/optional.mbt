@@ -1,5 +1,5 @@
 ///|
-type Optional[_]
+extern type Optional[_]
 
 ///|
 pub fn Optional::is_undefined[T](self : Optional[T]) -> Bool {

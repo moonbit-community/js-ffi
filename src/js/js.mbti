@@ -60,7 +60,7 @@ impl Optional {
   undefined[T]() -> Self[T]
 }
 
-pub type Promise
+pub extern type Promise
 
 type Symbol
 impl Symbol {
@@ -168,7 +168,7 @@ impl Union8 {
   to7[A, B, C, D, E, F, G, H : Cast](Self[A, B, C, D, E, F, G, H]) -> H?
 }
 
-pub type Value
+pub extern type Value
 impl Value {
   apply[Arg, Result](Self, Array[Arg]) -> Result
   apply_with_index[Arg, Result](Self, Int, Array[Arg]) -> Result

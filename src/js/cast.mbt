@@ -45,7 +45,9 @@ pub impl Cast for String with into(value) {
 }
 
 ///|
-pub impl Cast for String with from(value) { Value::cast_from(value) }
+pub impl Cast for String with from(value) {
+  Value::cast_from(value)
+}
 
 ///|
 pub impl Cast for Int with into(value) {
@@ -53,7 +55,9 @@ pub impl Cast for Int with into(value) {
 }
 
 ///|
-pub impl Cast for Int with from(value) { Value::cast_from(value) }
+pub impl Cast for Int with from(value) {
+  Value::cast_from(value)
+}
 
 ///|
 pub impl Cast for Double with into(value) {
@@ -61,7 +65,9 @@ pub impl Cast for Double with into(value) {
 }
 
 ///|
-pub impl Cast for Double with from(value) { Value::cast_from(value) }
+pub impl Cast for Double with from(value) {
+  Value::cast_from(value)
+}
 
 ///|
 pub impl Cast for Bool with into(value) {
@@ -69,7 +75,9 @@ pub impl Cast for Bool with into(value) {
 }
 
 ///|
-pub impl Cast for Bool with from(value) { Value::cast_from(value) }
+pub impl Cast for Bool with from(value) {
+  Value::cast_from(value)
+}
 
 ///|
 pub impl[A : Cast] Cast for Array[A] with into(value) {

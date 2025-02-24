@@ -1,5 +1,5 @@
 ///|
-pub type Value
+pub extern type Value
 
 ///|
 pub fn Value::cast_from[T](value : T) -> Value = "%identity"
