@@ -17,7 +17,7 @@ extern "js" fn async_wrap_ffi(
   op : AsyncOp,
   on_ok : (Value) -> Unit,
   on_err : (Value) -> Unit
-) -> Unit = "(op, on_ok, on_err) => op().then((t) => on_ok(t)).catch((e) => on_err(e))"
+) -> Unit = "(op, on_ok, on_err) => op().then((t) => on_ok(t), (e) => on_err(e))"
 
 ///|
 pub async fn async_wrap(op : AsyncOp) -> Value! {
