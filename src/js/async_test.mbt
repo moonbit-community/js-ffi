@@ -5,7 +5,7 @@ async fn op1() -> String? {
 
 ///|
 async fn op2() -> String? {
-  guard let Some(prefix) = op1!!()
+  guard op1!!() is Some(prefix)
   Some(prefix + ", World")
 }
 
