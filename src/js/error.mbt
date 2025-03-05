@@ -17,7 +17,7 @@ pub impl Show for Error_ with output(self, logger) {
   logger.write_string("@js.Error: ")
   let Error_(inner) = self
   logger.write_object(inner)
-  guard let Some(cause_inner) = self.cause() else { _ => return }
+  guard self.cause() is Some(cause_inner) else { return }
   logger.write_string("\n  caused by:\n")
   logger.write_object(cause_inner)
 }
@@ -37,6 +37,8 @@ pub fn Error_::wrap[T](
 ) -> T!Error_ {
   let mut res : Result[Value, Error_] = Ok(Value::undefined())
   Error_::wrap_ffi(op, fn(v) { res = Ok(v) }, fn(e) { res = Err(Error_(e)) })
-  guard let Ok(v) = res else { Err(e) => raise e }
-  map_ok(v)
+  match res {
+    Ok(v) => map_ok(v)
+    Err(e) => raise e
+  }
 }
