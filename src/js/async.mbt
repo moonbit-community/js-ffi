@@ -43,6 +43,17 @@ pub fn Promise::new[T](op : async () -> T!) -> Promise {
 }
 
 ///|
+pub fn spawn_detach[T, E : Error](op : async () -> T!E) -> Unit {
+  async_run(fn() {
+    try {
+      op!!() |> ignore
+    } catch {
+      _ => ()
+    }
+  })
+}
+
+///|
 extern "js" fn Promise::new_ffi(op : async () -> Value!) -> Promise =
   #| (op) => new Promise((k, ke) => op(k, ke))
 
@@ -77,3 +88,43 @@ pub fn async_test(op : async () -> Unit!) -> Unit {
     }
   })
 }
+
+///|
+extern "js" fn with_resolvers_ffi() -> Array[Value] =
+  #|() => {
+  #|  const {promise, resolve, reject} = Promise.withResolvers();
+  #|  return [promise, resolve, reject]
+  #|}
+
+// ///|
+// fn with_resolvers() -> (Promise, () -> Unit, () -> Unit) {
+//   let results = with_resolvers_ffi()
+//   (results[0].cast(), results[1].cast(), results[2].cast())
+// }
+
+///|
+pub fn with_resolvers_[T]() -> (async () -> T!, Ref[(T) -> Unit]) {
+  let v_ref : Ref[T?] = @ref.new(None)
+  let k_ref : Ref[(T) -> Unit] = @ref.new(fn(t) { v_ref.val = Some(t) })
+  let op = async fn!() {
+    suspend!!(fn(k, _) {
+      match v_ref.val {
+        None => k_ref.val = fn(t) { k(t) }
+        Some(t) => k(t)
+      }
+    })
+  }
+  (op, k_ref)
+}
+
+///|
+pub extern "js" fn set_timeout(f : () -> Unit, n : Int) -> Unit =
+  #|(f, n) => setTimeout(f, n)
+
+///|
+pub extern "js" fn debugger() -> Unit =
+  #|() => { debugger; }
+
+///|
+extern "js" fn exit() -> Unit =
+  #|() => process.exit(0)

@@ -31,3 +31,14 @@ test "async_all" {
     )
   })
 }
+
+///|
+test "with_resolvers" {
+  async_test(fn() {
+    let (op, k) = with_resolvers_()
+    println("before")
+    set_timeout(fn() { (k.val)(42) }, 1000)
+    let a = op!!()
+    println(a)
+  })
+}
