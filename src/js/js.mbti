@@ -9,9 +9,9 @@ fn async_run(() -> Unit) -> Unit
 
 fn async_test(() -> Unit!) -> Unit
 
-fn async_unwrap[T](() -> T!) -> Promise
+fn async_unwrap[T](() -> T!) -> Promise //deprecated
 
-fn async_wrap(() -> Promise) -> Value!
+fn async_wrap(() -> Promise) -> Value! //deprecated
 
 let globalThis : Value
 
@@ -61,6 +61,11 @@ impl Optional {
 }
 
 pub extern type Promise
+impl Promise {
+  all(Array[Self]) -> Self
+  new[T](() -> T!) -> Self
+  wait(Self) -> Value!
+}
 
 type Symbol
 impl Symbol {
