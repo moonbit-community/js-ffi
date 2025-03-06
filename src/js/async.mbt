@@ -33,6 +33,11 @@ pub async fn Promise::wait(self : Promise) -> Value! {
 }
 
 ///|
+pub fn Promise::dont_wait(self : Promise) -> Unit {
+  self |> ignore
+}
+
+///|
 pub fn Promise::new[T](op : async () -> T!) -> Promise {
   Promise::new_ffi(fn() { Value::cast_from(op!!()) })
 }
