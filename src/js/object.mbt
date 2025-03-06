@@ -5,8 +5,13 @@ pub type Object Value
 pub extern "js" fn Object::new() -> Object = "() => new Object()"
 
 ///|
-pub extern "js" fn Object::from_value(value : Value) -> Object =
-  #| (value) => new Object(value)
+pub fn Object::from_value_unchecked(value : Value) -> Object {
+  value
+}
+
+///|
+pub extern "js" fn Object::from_value(value : Value) -> Optional[Object] =
+  #| (value) => (value) instanceof Object ? value : undefined
 
 ///|
 pub extern "js" fn Object::extend_object(self : Object, obj : Object) -> Object =
