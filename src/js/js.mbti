@@ -45,7 +45,8 @@ impl Object {
   extend_object(Self, Self) -> Self
   from_iter[K, V](Iter[(K, V)]) -> Self
   from_iter2[K, V](Iter2[K, V]) -> Self
-  from_value(Value) -> Self
+  from_value(Value) -> Optional[Self]
+  from_value_unchecked(Value) -> Self
   new() -> Self
   op_get[K, V](Self, K) -> V
   op_set[K, V](Self, K, V) -> Unit
