@@ -20,34 +20,43 @@ extern "js" fn async_wrap_ffi(
 ) -> Unit = "(op, on_ok, on_err) => op().then((t) => on_ok(t), (e) => on_err(e))"
 
 ///|
-pub async fn async_wrap(op : AsyncOp) -> Value! {
-  suspend!!(fn(k, ke) { async_wrap_ffi(op, k, fn(e) { ke(Error_(e)) }) })
+extern "js" fn Promise::wait_ffi(
+  self : Promise,
+  on_ok : (Value) -> Unit,
+  on_err : (Value) -> Unit
+) -> Unit =
+  #| (self, on_ok, on_err) => self.then((t) => on_ok(t), (e) => on_err(e))
+
+///|
+pub async fn Promise::wait(self : Promise) -> Value! {
+  suspend!!(fn(k, ke) { Promise::wait_ffi(self, k, fn(e) { ke(Error_(e)) }) })
 }
 
 ///|
-extern "js" fn async_unwrap_ffi(op : async () -> Value!) -> Promise =
+pub fn Promise::new[T](op : async () -> T!) -> Promise {
+  Promise::new_ffi(fn() { Value::cast_from(op!!()) })
+}
+
+///|
+extern "js" fn Promise::new_ffi(op : async () -> Value!) -> Promise =
   #| (op) => new Promise((k, ke) => op(k, ke))
-
-///|
-pub fn async_unwrap[T](op : async () -> T!) -> Promise {
-  async_unwrap_ffi(fn() { Value::cast_from(op!!()) })
-}
 
 ///|
 /// # Note
 /// The return type is guaranteed to be a `Promise` of an `Array`, but we omit that detail for simplicity.
-extern "js" fn Promise::all_ffi(ops : Array[Promise]) -> Promise = "(ops) => Promise.all(ops)"
+pub extern "js" fn Promise::all(promises : Array[Promise]) -> Promise = "(ps) => Promise.all(ps)"
 
 ///|
-async fn async_all_raw!(ops : Array[async () -> Value!]) -> Array[Value] {
-  async_wrap!!(fn() { Promise::all_ffi(ops.map(async_unwrap_ffi)) }).cast()
-}
-
-///|
+/// Wraps each given `async fn` in a `Promise` and waits for all of them to resolve.
 pub async fn async_all![T](ops : Array[async () -> T!]) -> Array[T] {
   async_all_raw!!(ops.map(fn(op) { async fn!() { Value::cast_from(op!!()) } })).map(
     Value::cast,
   )
+}
+
+///|
+async fn async_all_raw!(ops : Array[async () -> Value!]) -> Array[Value] {
+  Promise::all(ops.map(Promise::new)).wait!!().cast()
 }
 
 ///|
