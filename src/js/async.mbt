@@ -38,6 +38,17 @@ pub fn Promise::new[T](op : async () -> T!) -> Promise {
 }
 
 ///|
+pub fn spawn_detach[T, E : Error](op : async () -> T!E) -> Unit {
+  async_run(fn() {
+    try {
+      op!!() |> ignore
+    } catch {
+      _ => ()
+    }
+  })
+}
+
+///|
 extern "js" fn Promise::new_ffi(op : async () -> Value!) -> Promise =
   #| (op) => new Promise((k, ke) => op(k, ke))
 
