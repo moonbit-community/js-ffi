@@ -19,6 +19,8 @@ let iterator : Symbol
 
 fn require(String, keys~ : Array[String] = ..) -> Value
 
+fn spawn_detach[T, E : Error](() -> T!E) -> Unit
+
 fn suspend[T, E : Error](((T) -> Unit, (E) -> Unit) -> Unit) -> T!E
 
 // Types and methods
