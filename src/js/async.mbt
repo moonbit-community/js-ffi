@@ -10,16 +10,6 @@ pub fn async_run(f : async () -> Unit) -> Unit = "%async.run"
 pub extern type Promise
 
 ///|
-pub typealias AsyncOp = () -> Promise
-
-///|
-extern "js" fn async_wrap_ffi(
-  op : AsyncOp,
-  on_ok : (Value) -> Unit,
-  on_err : (Value) -> Unit
-) -> Unit = "(op, on_ok, on_err) => op().then((t) => on_ok(t), (e) => on_err(e))"
-
-///|
 extern "js" fn Promise::wait_ffi(
   self : Promise,
   on_ok : (Value) -> Unit,
