@@ -17,7 +17,8 @@ async fn op3() -> String? {
 ///|
 test "Promise::wait" {
   @js.async_test(fn!() {
-    let res = @js.Promise::new(fn() { op1!!() }).wait!!()
+    // Promise::unsafe_new + Promise::wait is a noop.
+    let res = @js.Promise::unsafe_new(fn() { op1!!() }).wait!!()
     assert_eq!(res.cast(), Some("Hello"))
   })
 }

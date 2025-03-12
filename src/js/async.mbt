@@ -7,6 +7,13 @@ pub async fn suspend[T, E : Error](
 pub fn async_run(f : async () -> Unit) -> Unit = "%async.run"
 
 ///|
+/// # Safety
+///
+/// You should always `Promise::wait` on any `Promise` you own to attach
+/// exception handlers, as long as you are responsible for the control flow
+/// (i.e. this `Promise` is not handled by an external JavaScript API).
+/// This makes sure that when the operation in the this `Promise` errs out,
+/// the error is caught by the MoonBit runtime.
 pub extern type Promise
 
 ///|
@@ -23,9 +30,21 @@ pub async fn Promise::wait(self : Promise) -> Value! {
 }
 
 ///|
-pub fn Promise::new[T](op : async () -> T!) -> Promise {
+/// # Safety
+///
+/// You should always `Promise::wait` on the result of this function to attach
+/// exception handlers, as long as you are responsible for the control flow
+/// (i.e. the resulting `Promise` is not handled by an external JavaScript API).
+/// This makes sure that when `op` errs out, the error is caught by the MoonBit runtime.
+///
+/// If you don't care about the result of the operation, you can use `spawn_detach` instead.
+pub fn Promise::unsafe_new[T](op : async () -> T!) -> Promise {
   Promise::new_ffi(fn() { Value::cast_from(op!!()) })
 }
+
+///|
+extern "js" fn Promise::new_ffi(op : async () -> Value!) -> Promise =
+  #| (op) => new Promise((k, ke) => op(k, ke))
 
 ///|
 pub fn spawn_detach[T, E : Error](op : async () -> T!E) -> Unit {
@@ -37,10 +56,6 @@ pub fn spawn_detach[T, E : Error](op : async () -> T!E) -> Unit {
     }
   })
 }
-
-///|
-extern "js" fn Promise::new_ffi(op : async () -> Value!) -> Promise =
-  #| (op) => new Promise((k, ke) => op(k, ke))
 
 ///|
 /// # Note
@@ -57,7 +72,7 @@ pub async fn async_all![T](ops : Array[async () -> T!]) -> Array[T] {
 
 ///|
 async fn async_all_raw!(ops : Array[async () -> Value!]) -> Array[Value] {
-  Promise::all(ops.map(Promise::new)).wait!!().cast()
+  Promise::all(ops.map(Promise::unsafe_new)).wait!!().cast()
 }
 
 ///|
