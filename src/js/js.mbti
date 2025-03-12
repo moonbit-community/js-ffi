@@ -9,8 +9,10 @@ fn async_run(() -> Unit) -> Unit
 
 fn async_test(() -> Unit!) -> Unit
 
+#deprecated
 fn async_unwrap[T](() -> T!) -> Promise
 
+#deprecated
 fn async_wrap(() -> Promise) -> Value!
 
 fn extends(Value, Value) -> Value
@@ -94,6 +96,7 @@ impl Optional {
 pub extern type Promise
 impl Promise {
   all(Array[Self]) -> Self
+  #deprecated
   new[T](() -> T!) -> Self
   unsafe_new[T](() -> T!) -> Self
   wait(Self) -> Value!
