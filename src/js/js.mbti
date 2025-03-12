@@ -9,15 +9,43 @@ fn async_run(() -> Unit) -> Unit
 
 fn async_test(() -> Unit!) -> Unit
 
-fn async_unwrap[T](() -> T!) -> Promise //deprecated
+fn async_unwrap[T](() -> T!) -> Promise
 
-fn async_wrap(() -> Promise) -> Value! //deprecated
+fn async_wrap(() -> Promise) -> Value!
+
+fn extends(Value, Value) -> Value
+
+fn get_with_index[T](Value, Int) -> T
+
+fn get_with_string[T](Value, String) -> T
+
+fn get_with_symbol[T](Value, Symbol) -> T
 
 let globalThis : Value
+
+fn is_bool(Value) -> Bool
+
+fn is_null(Value) -> Bool
+
+fn is_number(Value) -> Bool
+
+fn is_object(Value) -> Bool
+
+fn is_string(Value) -> Bool
+
+fn is_symbol(Value) -> Bool
+
+fn is_undefined(Value) -> Bool
 
 let iterator : Symbol
 
 fn require(String, keys~ : Array[String] = ..) -> Value
+
+fn set_with_index[T](Value, Int, T) -> Unit
+
+fn set_with_string[T](Value, String, T) -> Unit
+
+fn set_with_symbol[T](Value, Symbol, T) -> Unit
 
 fn spawn_detach[T, E : Error](() -> T!E) -> Unit
 
@@ -67,6 +95,7 @@ pub extern type Promise
 impl Promise {
   all(Array[Self]) -> Self
   new[T](() -> T!) -> Self
+  unsafe_new[T](() -> T!) -> Self
   wait(Self) -> Value!
 }
 
