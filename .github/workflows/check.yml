@@ -46,11 +46,11 @@ jobs:
           moonrun --version
 
       - name: moon check
-        run: moon check --deny-warn
+        run: moon check --deny-warn --target=js
 
       - name: moon info and moon fmt
         run: |
-          moon info
+          moon info --target=js
           moon fmt
           git diff --exit-code
 

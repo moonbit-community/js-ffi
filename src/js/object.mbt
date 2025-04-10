@@ -10,6 +10,11 @@ pub fn Object::from_value_unchecked(value : Value) -> Object {
 }
 
 ///|
+pub fn Object::to_value(self : Object) -> Value {
+  self._
+}
+
+///|
 pub extern "js" fn Object::from_value(value : Value) -> Optional[Object] =
   #| (value) => (value) instanceof Object ? value : undefined
 
