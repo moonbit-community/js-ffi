@@ -226,7 +226,7 @@ impl Value {
   #deprecated
   cast_from[T](T) -> Self
   extends(Self, Self) -> Self
-  from[T](Self) -> T
+  from[T](T) -> Self
   from_json(Json) -> Self!
   from_json_string(String) -> Self!
   get_with_index[T](Self, Int) -> T
@@ -250,7 +250,6 @@ impl Value {
   to_json(Self) -> Json!
   to_json_string(Self) -> String!
   to_string(Self) -> String
-  unsafe_from[T](T) -> Self
   unsafe_into[T](Self) -> T
 }
 impl Show for Value

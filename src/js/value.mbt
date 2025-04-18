@@ -2,31 +2,18 @@
 pub extern type Value
 
 ///|
-#deprecated("Use `Value::from` or `Value::unsafe_into` instead.")
+#deprecated("Use `Value::from` instead.")
 pub fn Value::cast_from[T](value : T) -> Value = "%identity"
 
 ///| 
 #deprecated("Use `Value::into` or `Value::unsafe_into` instead.")
 pub fn Value::cast[T](self : Value) -> T = "%identity"
 
-///| Create a `Value` from any type, without checking for null or undefined.
-pub fn Value::unsafe_from[T](value : T) -> Value = "%identity"
+///| Create a `Value` from any type, checking for null or undefined.
+pub fn Value::from[T](self : T) -> Value = "%identity"
 
 ///| Cast a `Value` to any type, without checking for null or undefined.
 pub fn Value::unsafe_into[T](self : Value) -> T = "%identity"
-
-///| Create a `Value` from any type, checking for null or undefined.
-/// 
-/// If the value is null or undefined, it will abort the program.
-pub fn Value::from[T](self : Value) -> T {
-  if self.is_null() {
-    abort("Value::from on null")
-  }
-  if self.is_undefined() {
-    abort("Value::from on undefined")
-  }
-  self.unsafe_into()
-}
 
 ///| Convert a `Value` to any type, checking for null or undefined.
 /// 
@@ -54,38 +41,38 @@ pub let globalThis : Value = get_globalThis()
 
 ///|
 pub fn get_with_string[T](self : Value, key : String) -> T {
-  self.get_ffi(Value::cast_from(key)).cast()
+  self.get_ffi(Value::from(key)).unsafe_into()
 }
 
 ///|
 pub fn get_with_symbol[T](self : Value, key : Symbol) -> T {
-  self.get_ffi(Value::cast_from(key)).cast()
+  self.get_ffi(Value::from(key)).unsafe_into()
 }
 
 ///|
 pub fn get_with_index[T](self : Value, index : Int) -> T {
-  self.get_ffi(Value::cast_from(index)).cast()
+  self.get_ffi(Value::from(index)).unsafe_into()
 }
 
 ///|
 pub fn set_with_string[T](self : Value, key : String, value : T) -> Unit {
-  self.set_ffi(Value::cast_from(key), Value::cast_from(value))
+  self.set_ffi(Value::from(key), Value::from(value))
 }
 
 ///|
 pub fn set_with_symbol[T](self : Value, key : Symbol, value : T) -> Unit {
-  self.set_ffi(Value::cast_from(key), Value::cast_from(value))
+  self.set_ffi(Value::from(key), Value::from(value))
 }
 
 ///|
 pub fn set_with_index[T](self : Value, index : Int, value : T) -> Unit {
-  self.set_ffi(Value::cast_from(index), Value::cast_from(value))
+  self.set_ffi(Value::from(index), Value::from(value))
 }
 
 ///|
 /// `self(...args)`
 pub fn Value::apply[Arg, Result](self : Value, args : Array[Arg]) -> Result {
-  self.apply_self_ffi(Value::cast_from(args)).cast()
+  self.apply_self_ffi(Value::from(args)).unsafe_into()
 }
 
 ///|
@@ -95,7 +82,7 @@ pub fn Value::apply_with_string[Arg, Result](
   key : String,
   args : Array[Arg]
 ) -> Result {
-  self.apply_ffi(Value::cast_from(key), Value::cast_from(args)).cast()
+  self.apply_ffi(Value::from(key), Value::from(args)).unsafe_into()
 }
 
 ///|
@@ -105,7 +92,7 @@ pub fn Value::apply_with_symbol[Arg, Result](
   key : Symbol,
   args : Array[Arg]
 ) -> Result {
-  self.apply_ffi(Value::cast_from(key), Value::cast_from(args)).cast()
+  self.apply_ffi(Value::from(key), Value::from(args)).unsafe_into()
 }
 
 ///|
@@ -115,13 +102,13 @@ pub fn Value::apply_with_index[Arg, Result](
   index : Int,
   args : Array[Arg]
 ) -> Result {
-  self.apply_ffi(Value::cast_from(index), Value::cast_from(args)).cast()
+  self.apply_ffi(Value::from(index), Value::from(args)).unsafe_into()
 }
 
 ///|
 /// `new self(...args)`
 pub fn Value::new[Arg, Result](self : Value, args : Array[Arg]) -> Result {
-  self.new_self_ffi(Value::cast_from(args)).cast()
+  self.new_self_ffi(Value::from(args)).unsafe_into()
 }
 
 ///|
@@ -131,7 +118,7 @@ pub fn Value::new_with_string[Arg, Result](
   key : String,
   args : Array[Arg]
 ) -> Result {
-  self.new_ffi(Value::cast_from(key), Value::cast_from(args)).cast()
+  self.new_ffi(Value::from(key), Value::from(args)).unsafe_into()
 }
 
 ///|
@@ -141,7 +128,7 @@ pub fn Value::new_with_symbol[Arg, Result](
   key : Symbol,
   args : Array[Arg]
 ) -> Result {
-  self.new_ffi(Value::cast_from(key), Value::cast_from(args)).cast()
+  self.new_ffi(Value::from(key), Value::from(args)).unsafe_into()
 }
 
 ///|
@@ -151,7 +138,7 @@ pub fn Value::new_with_index[Arg, Result](
   index : Int,
   args : Array[Arg]
 ) -> Result {
-  self.new_ffi(Value::cast_from(index), Value::cast_from(args)).cast()
+  self.new_ffi(Value::from(index), Value::from(args)).unsafe_into()
 }
 
 ///|
@@ -162,17 +149,17 @@ pub fn Value::from_json!(json : Json) -> Value {
 ///|
 pub impl @json.FromJson for Value with from_json(json : Json, path) {
   match json {
-    String(s) => Value::cast_from(s)
-    Number(n) => Value::cast_from(n)
-    False => Value::cast_from(false)
-    True => Value::cast_from(true)
+    String(s) => Value::from(s)
+    Number(n) => Value::from(n)
+    False => Value::from(false)
+    True => Value::from(true)
     Null => Value::null()
     Array(xs) => {
       let acc = Array::new(capacity=xs.length())
       for x in xs {
         acc.push((@json.from_json!(x, path~) : Value))
       }
-      Value::cast_from(acc)
+      Value::from(acc)
     }
     Object(kvs) => {
       let acc = Object::new()

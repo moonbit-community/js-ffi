@@ -39,7 +39,7 @@ pub async fn Promise::wait(self : Promise) -> Value! {
 ///
 /// If you don't care about the result of the operation, you can use `spawn_detach` instead.
 pub fn Promise::unsafe_new[T](op : async () -> T!) -> Promise {
-  Promise::new_ffi(fn() { Value::cast_from(op!()) })
+  Promise::new_ffi(fn() { Value::from(op!()) })
 }
 
 ///|
@@ -65,14 +65,14 @@ pub extern "js" fn Promise::all(promises : Array[Promise]) -> Promise = "(ps) =>
 ///|
 /// Wraps each given `async fn` in a `Promise` and waits for all of them to resolve.
 pub async fn async_all![T](ops : Array[async () -> T!]) -> Array[T] {
-  async_all_raw!(ops.map(fn(op) { async fn!() { Value::cast_from(op!()) } })).map(
-    Value::cast,
+  async_all_raw!(ops.map(fn(op) { async fn!() { Value::from(op!()) } })).map(
+    Value::unsafe_into,
   )
 }
 
 ///|
 async fn async_all_raw!(ops : Array[async () -> Value!]) -> Array[Value] {
-  Promise::all(ops.map(Promise::unsafe_new)).wait!().cast()
+  Promise::all(ops.map(Promise::unsafe_new)).wait!().unsafe_into()
 }
 
 ///|

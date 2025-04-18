@@ -48,10 +48,10 @@ pub fn Object::from_iter2[K, V](it : Iter2[K, V]) -> Object {
 
 ///|
 pub fn Object::op_get[K, V](self : Object, key : K) -> V {
-  self._.get_ffi(Value::cast_from(key)).cast()
+  self._.get_ffi(Value::from(key)).unsafe_into()
 }
 
 ///|
 pub fn Object::op_set[K, V](self : Object, key : K, value : V) -> Unit {
-  self._.set_ffi(Value::cast_from(key), Value::cast_from(value))
+  self._.set_ffi(Value::from(key), Value::from(value))
 }

@@ -3,7 +3,7 @@ extern type Optional[_]
 
 ///|
 pub fn Optional::is_undefined[T](self : Optional[T]) -> Bool {
-  self |> Value::cast_from |> Value::is_undefined
+  self |> Value::from |> Value::is_undefined
 }
 
 ///| 
@@ -25,7 +25,7 @@ pub fn Optional::unwrap[T](self : Optional[T]) -> T {
 
 ///| Convert an Optional value to an Option.
 pub fn Optional::to_option[T](self : Optional[T]) -> T? {
-  if Value::cast_from(self).is_undefined() {
+  if Value::from(self).is_undefined() {
     None
   } else {
     Some(self.unsafe_get())
@@ -34,13 +34,13 @@ pub fn Optional::to_option[T](self : Optional[T]) -> T? {
 
 ///|
 pub fn Optional::undefined[T]() -> Optional[T] {
-  Value::undefined().cast()
+  Value::undefined().unsafe_into()
 }
 
 ///|
 pub fn Optional::from_option[T](value : T?) -> Optional[T] {
   match value {
-    Some(v) => Value::cast_from(v).cast()
+    Some(v) => Value::from(v).unsafe_into()
     None => Optional::undefined()
   }
 }

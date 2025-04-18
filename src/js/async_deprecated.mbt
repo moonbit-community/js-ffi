@@ -18,7 +18,7 @@ pub async fn async_wrap(op : AsyncOp) -> Value! {
 ///|
 #deprecated("use Promise::new instead")
 pub fn async_unwrap[T](op : async () -> T!) -> Promise {
-  Promise::new_ffi(fn() { Value::cast_from(op!()) })
+  Promise::new_ffi(fn() { Value::from(op!()) })
 }
 
 ///|

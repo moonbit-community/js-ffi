@@ -3,7 +3,7 @@ extern type Nullable[_]
 
 ///|
 pub fn Nullable::is_null[T](self : Nullable[T]) -> Bool {
-  Value::is_null(Value::cast_from(self))
+  Value::is_null(Value::from(self))
 }
 
 ///|
@@ -28,16 +28,16 @@ pub fn Nullable::unwrap[T](self : Nullable[T]) -> T {
 
 ///| Convert a Nullable value to an Option.
 pub fn Nullable::to_option[T](self : Nullable[T]) -> T? {
-  guard not(Value::cast_from(self).is_null()) else { None }
+  guard not(Value::from(self).is_null()) else { None }
   Some(self.unsafe_get())
 }
 
 ///|
 pub fn Nullable::null[T]() -> Nullable[T] {
-  Value::null().cast()
+  Value::null().unsafe_into()
 }
 
 ///|
 pub fn Nullable::from_option[T](value : T?) -> Nullable[T] {
-  value.map(Value::cast_from).or_else(Value::null).cast()
+  value.map(Value::from).or_else(Value::null).unsafe_into()
 }
