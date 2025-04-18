@@ -2,10 +2,44 @@
 pub extern type Value
 
 ///|
+#deprecated("Use `Value::from` or `Value::unsafe_into` instead.")
 pub fn Value::cast_from[T](value : T) -> Value = "%identity"
 
-///|
+///| 
+#deprecated("Use `Value::into` or `Value::unsafe_into` instead.")
 pub fn Value::cast[T](self : Value) -> T = "%identity"
+
+///| Create a `Value` from any type, without checking for null or undefined.
+pub fn Value::unsafe_from[T](value : T) -> Value = "%identity"
+
+///| Cast a `Value` to any type, without checking for null or undefined.
+pub fn Value::unsafe_into[T](self : Value) -> T = "%identity"
+
+///| Create a `Value` from any type, checking for null or undefined.
+/// 
+/// If the value is null or undefined, it will abort the program.
+pub fn Value::from[T](self : Value) -> T {
+  if self.is_null() {
+    abort("Value::from on null")
+  }
+  if self.is_undefined() {
+    abort("Value::from on undefined")
+  }
+  self.unsafe_into()
+}
+
+///| Convert a `Value` to any type, checking for null or undefined.
+/// 
+/// If the value is null or undefined, it will abort the program.
+pub fn Value::into[T](self : Value) -> T {
+  if self.is_null() {
+    abort("Value::cast on null")
+  }
+  if self.is_undefined() {
+    abort("Value::cast on undefined")
+  }
+  self.unsafe_into()
+}
 
 ///|
 pub extern "js" fn Value::to_string(self : Value) -> String = "(self) => self.toString()"
