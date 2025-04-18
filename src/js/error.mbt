@@ -9,7 +9,7 @@ pub fn Error_::cause(self : Error_) -> Value? {
   let Error_(inner) = self
   let cause = Error_::cause_ffi(inner)
   guard not(cause.is_undefined()) else { None }
-  Some(cause.cast())
+  Some(cause.unsafe_into())
 }
 
 ///|
@@ -33,7 +33,7 @@ extern "js" fn Error_::wrap_ffi(
 ///|
 pub fn Error_::wrap[T](
   op : () -> Value,
-  map_ok~ : (Value) -> T = Value::cast
+  map_ok~ : (Value) -> T = Value::unsafe_into
 ) -> T!Error_ {
   let mut res : Result[Value, Error_] = Ok(Value::undefined())
   Error_::wrap_ffi(op, fn(v) { res = Ok(v) }, fn(e) { res = Err(Error_(e)) })

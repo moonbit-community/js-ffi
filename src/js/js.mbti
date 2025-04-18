@@ -64,10 +64,13 @@ impl Show for Error_
 type Nullable[_]
 impl Nullable {
   from_option[T](T?) -> Self[T]
+  #deprecated
   get_exn[T](Self[T]) -> T
   is_null[T](Self[T]) -> Bool
   null[T]() -> Self[T]
   to_option[T](Self[T]) -> T?
+  unsafe_get[T](Self[T]) -> T
+  unwrap[T](Self[T]) -> T
 }
 
 pub type Object Value
@@ -88,10 +91,13 @@ impl Object {
 type Optional[_]
 impl Optional {
   from_option[T](T?) -> Self[T]
+  #deprecated
   get_exn[T](Self[T]) -> T
   is_undefined[T](Self[T]) -> Bool
   to_option[T](Self[T]) -> T?
   undefined[T]() -> Self[T]
+  unsafe_get[T](Self[T]) -> T
+  unwrap[T](Self[T]) -> T
 }
 
 pub extern type Promise
@@ -215,14 +221,18 @@ impl Value {
   apply_with_index[Arg, Result](Self, Int, Array[Arg]) -> Result
   apply_with_string[Arg, Result](Self, String, Array[Arg]) -> Result
   apply_with_symbol[Arg, Result](Self, Symbol, Array[Arg]) -> Result
+  #deprecated
   cast[T](Self) -> T
+  #deprecated
   cast_from[T](T) -> Self
   extends(Self, Self) -> Self
+  from[T](T) -> Self
   from_json(Json) -> Self!
   from_json_string(String) -> Self!
   get_with_index[T](Self, Int) -> T
   get_with_string[T](Self, String) -> T
   get_with_symbol[T](Self, Symbol) -> T
+  into[T](Self) -> T
   is_bool(Self) -> Bool
   is_null(Self) -> Bool
   is_number(Self) -> Bool
@@ -240,6 +250,7 @@ impl Value {
   to_json(Self) -> Json!
   to_json_string(Self) -> String!
   to_string(Self) -> String
+  unsafe_into[T](Self) -> T
 }
 impl Show for Value
 impl @moonbitlang/core/json.FromJson for Value

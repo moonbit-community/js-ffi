@@ -46,7 +46,7 @@ pub impl Cast for String with into(value) {
 
 ///|
 pub impl Cast for String with from(value) {
-  Value::cast_from(value)
+  Value::from(value)
 }
 
 ///|
@@ -56,7 +56,7 @@ pub impl Cast for Int with into(value) {
 
 ///|
 pub impl Cast for Int with from(value) {
-  Value::cast_from(value)
+  Value::from(value)
 }
 
 ///|
@@ -66,7 +66,7 @@ pub impl Cast for Double with into(value) {
 
 ///|
 pub impl Cast for Double with from(value) {
-  Value::cast_from(value)
+  Value::from(value)
 }
 
 ///|
@@ -76,7 +76,7 @@ pub impl Cast for Bool with into(value) {
 
 ///|
 pub impl Cast for Bool with from(value) {
-  Value::cast_from(value)
+  Value::from(value)
 }
 
 ///|
@@ -86,7 +86,7 @@ pub impl[A : Cast] Cast for Array[A] with into(value) {
   .bind(fn(arr) {
     let is_type_a = fn(elem) { not((Cast::into(elem) : A?).is_empty()) }
     if arr.iter().all(is_type_a) {
-      Some(Value::cast_from(arr).cast())
+      Some(Value::from(arr).unsafe_into())
     } else {
       None
     }
@@ -95,5 +95,5 @@ pub impl[A : Cast] Cast for Array[A] with into(value) {
 
 ///|
 pub impl[A : Cast] Cast for Array[A] with from(value) {
-  Value::cast_from(value)
+  Value::from(value)
 }
