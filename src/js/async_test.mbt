@@ -5,7 +5,7 @@ async fn op1() -> String? {
 
 ///|
 async fn op2() -> String? {
-  guard op1!!() is Some(prefix)
+  guard op1!() is Some(prefix)
   Some(prefix + ", World")
 }
 
@@ -18,7 +18,7 @@ async fn op3() -> String? {
 test "Promise::wait" {
   @js.async_test(fn!() {
     // Promise::unsafe_new + Promise::wait is a noop.
-    let res = @js.Promise::unsafe_new(fn() { op1!!() }).wait!!()
+    let res = @js.Promise::unsafe_new(fn() { op1!() }).wait!()
     assert_eq!(res.cast(), Some("Hello"))
   })
 }
@@ -27,7 +27,7 @@ test "Promise::wait" {
 test "async_all" {
   @js.async_test(fn!() {
     assert_eq!(
-      @js.async_all!!([fn() { op2!!() }, fn() { op1!!() }, fn() { op3!!() }]),
+      @js.async_all!([fn() { op2!() }, fn() { op1!() }, fn() { op3!() }]),
       [Some("Hello, World"), Some("Hello"), None],
     )
   })
