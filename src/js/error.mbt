@@ -31,7 +31,7 @@ extern "js" fn Error_::wrap_ffi(
   #| (op, on_ok, on_error) => { try { on_ok(op()); } catch (e) { on_error(e); } }
 
 ///|
-pub fn Error_::wrap[T](
+pub fn[T] Error_::wrap(
   op : () -> Value,
   map_ok~ : (Value) -> T = Value::cast
 ) -> T!Error_ {

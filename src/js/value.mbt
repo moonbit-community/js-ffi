@@ -2,10 +2,10 @@
 pub extern type Value
 
 ///|
-pub fn Value::cast_from[T](value : T) -> Value = "%identity"
+pub fn[T] Value::cast_from(value : T) -> Value = "%identity"
 
 ///|
-pub fn Value::cast[T](self : Value) -> T = "%identity"
+pub fn[T] Value::cast(self : Value) -> T = "%identity"
 
 ///|
 pub extern "js" fn Value::to_string(self : Value) -> String = "(self) => self.toString()"
@@ -19,44 +19,44 @@ pub impl Show for Value with output(self, logger) {
 pub let globalThis : Value = get_globalThis()
 
 ///|
-pub fn get_with_string[T](self : Value, key : String) -> T {
+pub fn[T] get_with_string(self : Value, key : String) -> T {
   self.get_ffi(Value::cast_from(key)).cast()
 }
 
 ///|
-pub fn get_with_symbol[T](self : Value, key : Symbol) -> T {
+pub fn[T] get_with_symbol(self : Value, key : Symbol) -> T {
   self.get_ffi(Value::cast_from(key)).cast()
 }
 
 ///|
-pub fn get_with_index[T](self : Value, index : Int) -> T {
+pub fn[T] get_with_index(self : Value, index : Int) -> T {
   self.get_ffi(Value::cast_from(index)).cast()
 }
 
 ///|
-pub fn set_with_string[T](self : Value, key : String, value : T) -> Unit {
+pub fn[T] set_with_string(self : Value, key : String, value : T) -> Unit {
   self.set_ffi(Value::cast_from(key), Value::cast_from(value))
 }
 
 ///|
-pub fn set_with_symbol[T](self : Value, key : Symbol, value : T) -> Unit {
+pub fn[T] set_with_symbol(self : Value, key : Symbol, value : T) -> Unit {
   self.set_ffi(Value::cast_from(key), Value::cast_from(value))
 }
 
 ///|
-pub fn set_with_index[T](self : Value, index : Int, value : T) -> Unit {
+pub fn[T] set_with_index(self : Value, index : Int, value : T) -> Unit {
   self.set_ffi(Value::cast_from(index), Value::cast_from(value))
 }
 
 ///|
 /// `self(...args)`
-pub fn Value::apply[Arg, Result](self : Value, args : Array[Arg]) -> Result {
+pub fn[Arg, Result] Value::apply(self : Value, args : Array[Arg]) -> Result {
   self.apply_self_ffi(Value::cast_from(args)).cast()
 }
 
 ///|
 /// `self[key](...args)`
-pub fn Value::apply_with_string[Arg, Result](
+pub fn[Arg, Result] Value::apply_with_string(
   self : Value,
   key : String,
   args : Array[Arg]
@@ -66,7 +66,7 @@ pub fn Value::apply_with_string[Arg, Result](
 
 ///|
 /// `self[key](...args)`
-pub fn Value::apply_with_symbol[Arg, Result](
+pub fn[Arg, Result] Value::apply_with_symbol(
   self : Value,
   key : Symbol,
   args : Array[Arg]
@@ -76,7 +76,7 @@ pub fn Value::apply_with_symbol[Arg, Result](
 
 ///|
 /// `self[index](...args)`
-pub fn Value::apply_with_index[Arg, Result](
+pub fn[Arg, Result] Value::apply_with_index(
   self : Value,
   index : Int,
   args : Array[Arg]
@@ -86,13 +86,13 @@ pub fn Value::apply_with_index[Arg, Result](
 
 ///|
 /// `new self(...args)`
-pub fn Value::new[Arg, Result](self : Value, args : Array[Arg]) -> Result {
+pub fn[Arg, Result] Value::new(self : Value, args : Array[Arg]) -> Result {
   self.new_self_ffi(Value::cast_from(args)).cast()
 }
 
 ///|
 /// `new self[key](...args)`
-pub fn Value::new_with_string[Arg, Result](
+pub fn[Arg, Result] Value::new_with_string(
   self : Value,
   key : String,
   args : Array[Arg]
@@ -102,7 +102,7 @@ pub fn Value::new_with_string[Arg, Result](
 
 ///|
 /// `new self[key](...args)`
-pub fn Value::new_with_symbol[Arg, Result](
+pub fn[Arg, Result] Value::new_with_symbol(
   self : Value,
   key : Symbol,
   args : Array[Arg]
@@ -112,7 +112,7 @@ pub fn Value::new_with_symbol[Arg, Result](
 
 ///|
 /// `new self[index](...args)`
-pub fn Value::new_with_index[Arg, Result](
+pub fn[Arg, Result] Value::new_with_index(
   self : Value,
   index : Int,
   args : Array[Arg]
