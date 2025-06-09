@@ -17,12 +17,12 @@ pub async fn async_wrap(op : AsyncOp) -> Value! {
 
 ///|
 #deprecated("use Promise::new instead")
-pub fn async_unwrap[T](op : () -> T!Error + Async) -> Promise {
+pub fn[T] async_unwrap(op : async () -> T!) -> Promise {
   Promise::new_ffi(fn() { Value::cast_from(op!()) })
 }
 
 ///|
 #deprecated("use Promise::unsafe_new instead")
-pub fn Promise::new[T](op : () -> T!Error + Async) -> Promise {
+pub fn[T] Promise::new(op : async () -> T!) -> Promise {
   Promise::unsafe_new(op)
 }

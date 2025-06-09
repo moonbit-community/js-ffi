@@ -1,10 +1,10 @@
 ///|
-pub async fn suspend[T, E : Error](
+pub async fn[T, E : Error] suspend(
   f : ((T) -> Unit, (E) -> Unit) -> Unit
 ) -> T!E = "%async.suspend"
 
 ///|
-pub fn async_run(f : () -> Unit!Async) -> Unit = "%async.run"
+pub fn async_run(f : async () -> Unit) -> Unit = "%async.run"
 
 ///|
 /// # Safety
@@ -38,20 +38,18 @@ pub async fn Promise::wait(self : Promise) -> Value! {
 /// This makes sure that when `op` errs out, the error is caught by the MoonBit runtime.
 ///
 /// If you don't care about the result of the operation, you can use `spawn_detach` instead.
-pub fn Promise::unsafe_new[T](op : () -> T!Error + Async) -> Promise {
+pub fn[T] Promise::unsafe_new(op : async () -> T!) -> Promise {
   Promise::new_ffi(fn() { Value::cast_from(op!()) })
 }
 
 ///|
-extern "js" fn Promise::new_ffi(op : () -> Value!Error + Async) -> Promise =
+extern "js" fn Promise::new_ffi(op : async () -> Value!) -> Promise =
   #| (op) => new Promise((k, ke) => op(k, ke))
 
 ///|
-pub fn spawn_detach[T, E : Error](op : () -> T!E + Async) -> Unit {
+pub fn[T, E : Error] spawn_detach(op : async () -> T!E) -> Unit {
   async_run(fn() {
-    try {
-      op!() |> ignore
-    } catch {
+    try op!() |> ignore catch {
       _ => ()
     }
   })
@@ -64,23 +62,21 @@ pub extern "js" fn Promise::all(promises : Array[Promise]) -> Promise = "(ps) =>
 
 ///|
 /// Wraps each given `async fn` in a `Promise` and waits for all of them to resolve.
-pub async fn async_all![T](ops : Array[() -> T!Error + Async]) -> Array[T] {
+pub async fn[T] async_all!(ops : Array[async () -> T!]) -> Array[T] {
   async_all_raw!(ops.map(fn(op) { async fn!() { Value::cast_from(op!()) } })).map(
     Value::cast,
   )
 }
 
 ///|
-async fn async_all_raw!(ops : Array[() -> Value!Error + Async]) -> Array[Value] {
+async fn async_all_raw!(ops : Array[async () -> Value!]) -> Array[Value] {
   Promise::all(ops.map(Promise::unsafe_new)).wait!().cast()
 }
 
 ///|
-pub fn async_test(op : () -> Unit!Error + Async) -> Unit {
+pub fn async_test(op : async () -> Unit!) -> Unit {
   async_run(async fn() {
-    try {
-      op!()
-    } catch {
+    try op!() catch {
       e => {
         println("ERROR in `async_test`: \{e}")
         panic()
