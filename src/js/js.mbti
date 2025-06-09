@@ -13,12 +13,6 @@ fn async_run(() -> Unit) -> Unit
 
 fn async_test(() -> Unit!) -> Unit
 
-#deprecated
-fn[T] async_unwrap(() -> T!) -> Promise
-
-#deprecated
-async fn async_wrap(() -> Promise) -> Value!
-
 fn extends(Value, Value) -> Value
 
 fn[T] get_with_index(Value, Int) -> T
@@ -92,8 +86,6 @@ fn[T] Optional::undefined() -> Self[T]
 
 pub extern type Promise
 fn Promise::all(Array[Self]) -> Self
-#deprecated
-fn[T] Promise::new(() -> T!) -> Self
 fn[T] Promise::unsafe_new(() -> T!) -> Self
 async fn Promise::wait(Self) -> Value!
 
@@ -221,7 +213,6 @@ impl Show for Value
 impl @json.FromJson for Value
 
 // Type aliases
-pub typealias AsyncOp = () -> Promise
 
 // Traits
 pub(open) trait Cast {
