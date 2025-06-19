@@ -7,5 +7,6 @@
   "keywords": [],
   "description": "",
   "source": "src",
-  "warn-list": "-6"
+  "warn-list": "-6",
+  "preferred-target": "js"
 }
