@@ -1,5 +1,6 @@
 ///| Union type `A | B` for JavaScript values.
-extern type Union2[_, _]
+#external
+type Union2[_, _]
 
 ///|
 pub fn[A : Cast, B] Union2::to0(self : Union2[A, B]) -> A? {
@@ -22,7 +23,8 @@ pub fn[A, B : Cast] Union2::from1(value : B) -> Union2[A, B] {
 }
 
 ///| Union type `A | B | C` for JavaScript values.
-extern type Union3[_, _, _]
+#external
+type Union3[_, _, _]
 
 ///|
 pub fn[A : Cast, B, C] Union3::to0(self : Union3[A, B, C]) -> A? {
@@ -55,7 +57,8 @@ pub fn[A, B, C : Cast] Union3::from2(value : C) -> Union3[A, B, C] {
 }
 
 ///| Union type `A | B | C | D` for JavaScript values.
-extern type Union4[_, _, _, _]
+#external
+type Union4[_, _, _, _]
 
 ///|
 pub fn[A : Cast, B, C, D] Union4::to0(self : Union4[A, B, C, D]) -> A? {
@@ -98,7 +101,8 @@ pub fn[A, B, C, D : Cast] Union4::from3(value : D) -> Union4[A, B, C, D] {
 }
 
 ///| Union type `A | B | C | D | E` for JavaScript values.
-extern type Union5[_, _, _, _, _]
+#external
+type Union5[_, _, _, _, _]
 
 ///|
 pub fn[A : Cast, B, C, D, E] Union5::to0(self : Union5[A, B, C, D, E]) -> A? {
@@ -151,7 +155,8 @@ pub fn[A, B, C, D, E : Cast] Union5::from4(value : E) -> Union5[A, B, C, D, E] {
 }
 
 ///| Union type `A | B | C | D | E | F` for JavaScript values.
-extern type Union6[_, _, _, _, _, _]
+#external
+type Union6[_, _, _, _, _, _]
 
 ///|
 pub fn[A : Cast, B, C, D, E, F] Union6::to0(
@@ -238,7 +243,8 @@ pub fn[A, B, C, D, E, F : Cast] Union6::from5(
 }
 
 ///| Union type `A | B | C | D | E | F | G` for JavaScript values.
-extern type Union7[_, _, _, _, _, _, _]
+#external
+type Union7[_, _, _, _, _, _, _]
 
 ///|
 pub fn[A : Cast, B, C, D, E, F, G] Union7::to0(
@@ -339,7 +345,8 @@ pub fn[A, B, C, D, E, F, G : Cast] Union7::from6(
 }
 
 ///| Union type `A | B | C | D | E | F | G | H` for JavaScript values.
-extern type Union8[_, _, _, _, _, _, _, _]
+#external
+type Union8[_, _, _, _, _, _, _, _]
 
 ///|
 pub fn[A : Cast, B, C, D, E, F, G, H] Union8::to0(

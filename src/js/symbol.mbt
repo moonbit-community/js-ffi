@@ -1,5 +1,6 @@
 ///|
-extern type Symbol
+#external
+type Symbol
 
 ///|
 pub fn Symbol::make() -> Symbol {
