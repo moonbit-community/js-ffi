@@ -1,5 +1,5 @@
 ///|
-pub type! Error_ Value
+pub suberror Error_ Value
 
 ///|
 extern "js" fn Error_::cause_ffi(self : Value) -> Value = "(self) => self.cause"
@@ -34,7 +34,7 @@ extern "js" fn Error_::wrap_ffi(
 pub fn[T] Error_::wrap(
   op : () -> Value,
   map_ok~ : (Value) -> T = Value::cast
-) -> T!Error_ {
+) -> T raise Error_ {
   let mut res : Result[Value, Error_] = Ok(Value::undefined())
   Error_::wrap_ffi(op, fn(v) { res = Ok(v) }, fn(e) { res = Err(Error_(e)) })
   match res {

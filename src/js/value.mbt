@@ -1,5 +1,6 @@
 ///|
-pub extern type Value
+#external
+pub type Value
 
 ///|
 pub fn[T] Value::cast_from(value : T) -> Value = "%identity"
@@ -121,8 +122,8 @@ pub fn[Arg, Result] Value::new_with_index(
 }
 
 ///|
-pub fn Value::from_json!(json : Json) -> Value {
-  @json.from_json!(json)
+pub fn Value::from_json(json : Json) -> Value raise {
+  @json.from_json(json)
 }
 
 ///|
@@ -136,36 +137,36 @@ pub impl @json.FromJson for Value with from_json(json : Json, path) {
     Array(xs) => {
       let acc = Array::new(capacity=xs.length())
       for x in xs {
-        acc.push((@json.from_json!(x, path~) : Value))
+        acc.push((@json.from_json(x, path~) : Value))
       }
       Value::cast_from(acc)
     }
     Object(kvs) => {
       let acc = Object::new()
       for k, v in kvs {
-        acc._.set_with_string(k, (@json.from_json!(v, path~) : Value))
+        acc.inner().set_with_string(k, (@json.from_json(v, path~) : Value))
       }
-      acc._
+      acc.inner()
     }
   }
 }
 
 ///|
-pub fn Value::from_json_string!(str : String) -> Value {
-  Error_::wrap!(fn() { Value::from_json_string_ffi(str) })
+pub fn Value::from_json_string(str : String) -> Value raise {
+  Error_::wrap(fn() { Value::from_json_string_ffi(str) })
 }
 
 ///|
 extern "js" fn Value::from_json_string_ffi(str : String) -> Value = "JSON.parse"
 
 ///|
-pub fn Value::to_json_string!(self : Value) -> String {
-  Error_::wrap!(fn() { self.to_json_string_ffi() })
+pub fn Value::to_json_string(self : Value) -> String raise {
+  Error_::wrap(fn() { self.to_json_string_ffi() })
 }
 
 ///|
-pub fn Value::to_json!(self : Value) -> Json {
-  @json.parse!(self.to_json_string!())
+pub fn Value::to_json(self : Value) -> Json raise {
+  @json.parse(self.to_json_string())
 }
 
 ///|

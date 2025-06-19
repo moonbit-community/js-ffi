@@ -11,7 +11,7 @@ pub fn Object::from_value_unchecked(value : Value) -> Object {
 
 ///|
 pub fn Object::to_value(self : Object) -> Value {
-  self._
+  self.inner()
 }
 
 ///|
@@ -52,10 +52,10 @@ pub fn[K, V] Object::from_iter2(it : Iter2[K, V]) -> Object {
 
 ///|
 pub fn[K, V] Object::op_get(self : Object, key : K) -> V {
-  self._.get_ffi(Value::cast_from(key)).cast()
+  self.inner().get_ffi(Value::cast_from(key)).cast()
 }
 
 ///|
 pub fn[K, V] Object::op_set(self : Object, key : K, value : V) -> Unit {
-  self._.set_ffi(Value::cast_from(key), Value::cast_from(value))
+  self.inner().set_ffi(Value::cast_from(key), Value::cast_from(value))
 }
