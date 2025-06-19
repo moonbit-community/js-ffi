@@ -60,7 +60,7 @@ let json_str_pretty =
   #|}
 
 ///|
-let json_val : @js.Value = @js.Value::from_json_string?(json_str_pretty).unwrap()
+let json_val : @js.Value = (try? @js.Value::from_json_string(json_str_pretty)).unwrap()
 
 ///|
 test "Value::to_json_string" {
