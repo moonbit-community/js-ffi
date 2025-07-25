@@ -26,14 +26,14 @@ pub impl Show for Error_ with output(self, logger) {
 extern "js" fn Error_::wrap_ffi(
   op : () -> Value,
   on_ok : (Value) -> Unit,
-  on_error : (Value) -> Unit
+  on_error : (Value) -> Unit,
 ) -> Unit =
   #| (op, on_ok, on_error) => { try { on_ok(op()); } catch (e) { on_error(e); } }
 
 ///|
 pub fn[T] Error_::wrap(
   op : () -> Value,
-  map_ok~ : (Value) -> T = Value::cast
+  map_ok~ : (Value) -> T = Value::cast,
 ) -> T raise Error_ {
   let mut res : Result[Value, Error_] = Ok(Value::undefined())
   Error_::wrap_ffi(op, fn(v) { res = Ok(v) }, fn(e) { res = Err(Error_(e)) })

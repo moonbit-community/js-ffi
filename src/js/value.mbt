@@ -60,7 +60,7 @@ pub fn[Arg, Result] Value::apply(self : Value, args : Array[Arg]) -> Result {
 pub fn[Arg, Result] Value::apply_with_string(
   self : Value,
   key : String,
-  args : Array[Arg]
+  args : Array[Arg],
 ) -> Result {
   self.apply_ffi(Value::cast_from(key), Value::cast_from(args)).cast()
 }
@@ -70,7 +70,7 @@ pub fn[Arg, Result] Value::apply_with_string(
 pub fn[Arg, Result] Value::apply_with_symbol(
   self : Value,
   key : Symbol,
-  args : Array[Arg]
+  args : Array[Arg],
 ) -> Result {
   self.apply_ffi(Value::cast_from(key), Value::cast_from(args)).cast()
 }
@@ -80,7 +80,7 @@ pub fn[Arg, Result] Value::apply_with_symbol(
 pub fn[Arg, Result] Value::apply_with_index(
   self : Value,
   index : Int,
-  args : Array[Arg]
+  args : Array[Arg],
 ) -> Result {
   self.apply_ffi(Value::cast_from(index), Value::cast_from(args)).cast()
 }
@@ -96,7 +96,7 @@ pub fn[Arg, Result] Value::new(self : Value, args : Array[Arg]) -> Result {
 pub fn[Arg, Result] Value::new_with_string(
   self : Value,
   key : String,
-  args : Array[Arg]
+  args : Array[Arg],
 ) -> Result {
   self.new_ffi(Value::cast_from(key), Value::cast_from(args)).cast()
 }
@@ -106,7 +106,7 @@ pub fn[Arg, Result] Value::new_with_string(
 pub fn[Arg, Result] Value::new_with_symbol(
   self : Value,
   key : Symbol,
-  args : Array[Arg]
+  args : Array[Arg],
 ) -> Result {
   self.new_ffi(Value::cast_from(key), Value::cast_from(args)).cast()
 }
@@ -116,7 +116,7 @@ pub fn[Arg, Result] Value::new_with_symbol(
 pub fn[Arg, Result] Value::new_with_index(
   self : Value,
   index : Int,
-  args : Array[Arg]
+  args : Array[Arg],
 ) -> Result {
   self.new_ffi(Value::cast_from(index), Value::cast_from(args)).cast()
 }

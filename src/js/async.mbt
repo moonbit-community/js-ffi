@@ -1,10 +1,10 @@
 ///|
 pub async fn[T, E : Error] suspend(
-  f : ((T) -> Unit, (E) -> Unit) -> Unit
+  f : ((T) -> Unit, (E) -> Unit) -> Unit,
 ) -> T raise E = "%async.suspend"
 
 ///|
-pub fn async_run(f : async () -> Unit) -> Unit = "%async.run"
+pub fn async_run(f : async () -> Unit noraise) -> Unit = "%async.run"
 
 ///|
 /// # Safety
@@ -21,7 +21,7 @@ pub type Promise
 extern "js" fn Promise::wait_ffi(
   self : Promise,
   on_ok : (Value) -> Unit,
-  on_err : (Value) -> Unit
+  on_err : (Value) -> Unit,
 ) -> Unit =
   #| (self, on_ok, on_err) => self.then((t) => on_ok(t), (e) => on_err(e))
 
@@ -71,7 +71,7 @@ pub async fn[T] async_all(ops : Array[async () -> T raise]) -> Array[T] raise {
 
 ///|
 async fn async_all_raw(
-  ops : Array[async () -> Value raise]
+  ops : Array[async () -> Value raise],
 ) -> Array[Value] raise {
   Promise::all(ops.map(Promise::unsafe_new)).wait().cast()
 }
