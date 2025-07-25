@@ -1,3 +1,4 @@
+// Generated using `moon info`, DON'T EDIT IT
 package "rami3l/js-ffi/js"
 
 import(
@@ -5,13 +6,13 @@ import(
 )
 
 // Values
-async fn[T] async_all(Array[() -> T raise]) -> Array[T] raise
+async fn[T] async_all(Array[async () -> T raise]) -> Array[T] raise
 
 let async_iterator : Symbol
 
-fn async_run(() -> Unit) -> Unit
+fn async_run(async () -> Unit) -> Unit
 
-fn async_test(() -> Unit raise) -> Unit
+fn async_test(async () -> Unit raise) -> Unit
 
 let globalThis : Value
 
@@ -19,7 +20,7 @@ let iterator : Symbol
 
 fn require(String, keys~ : Array[String] = ..) -> Value
 
-fn[T, E : Error] spawn_detach(() -> T raise E) -> Unit
+fn[T, E : Error] spawn_detach(async () -> T raise E) -> Unit
 
 async fn[T, E : Error] suspend(((T) -> Unit, (E) -> Unit) -> Unit) -> T raise E
 
@@ -64,7 +65,7 @@ fn[T] Optional::unwrap(Self[T]) -> T
 #external
 pub type Promise
 fn Promise::all(Array[Self]) -> Self
-fn[T] Promise::unsafe_new(() -> T raise) -> Self
+fn[T] Promise::unsafe_new(async () -> T raise) -> Self
 async fn Promise::wait(Self) -> Value raise
 
 type Symbol

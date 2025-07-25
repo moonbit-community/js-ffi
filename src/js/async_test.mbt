@@ -1,16 +1,16 @@
 ///|
-async fn op1() -> String? {
+async fn op1() -> String? noraise {
   Some("Hello")
 }
 
 ///|
-async fn op2() -> String? {
+async fn op2() -> String? noraise {
   guard op1() is Some(prefix)
   Some(prefix + ", World")
 }
 
 ///|
-async fn op3() -> String? {
+async fn op3() -> String? noraise {
   None
 }
 

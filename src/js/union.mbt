@@ -160,84 +160,84 @@ type Union6[_, _, _, _, _, _]
 
 ///|
 pub fn[A : Cast, B, C, D, E, F] Union6::to0(
-  self : Union6[A, B, C, D, E, F]
+  self : Union6[A, B, C, D, E, F],
 ) -> A? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B : Cast, C, D, E, F] Union6::to1(
-  self : Union6[A, B, C, D, E, F]
+  self : Union6[A, B, C, D, E, F],
 ) -> B? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C : Cast, D, E, F] Union6::to2(
-  self : Union6[A, B, C, D, E, F]
+  self : Union6[A, B, C, D, E, F],
 ) -> C? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C, D : Cast, E, F] Union6::to3(
-  self : Union6[A, B, C, D, E, F]
+  self : Union6[A, B, C, D, E, F],
 ) -> D? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C, D, E : Cast, F] Union6::to4(
-  self : Union6[A, B, C, D, E, F]
+  self : Union6[A, B, C, D, E, F],
 ) -> E? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C, D, E, F : Cast] Union6::to5(
-  self : Union6[A, B, C, D, E, F]
+  self : Union6[A, B, C, D, E, F],
 ) -> F? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A : Cast, B, C, D, E, F] Union6::from0(
-  value : A
+  value : A,
 ) -> Union6[A, B, C, D, E, F] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B : Cast, C, D, E, F] Union6::from1(
-  value : B
+  value : B,
 ) -> Union6[A, B, C, D, E, F] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C : Cast, D, E, F] Union6::from2(
-  value : C
+  value : C,
 ) -> Union6[A, B, C, D, E, F] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C, D : Cast, E, F] Union6::from3(
-  value : D
+  value : D,
 ) -> Union6[A, B, C, D, E, F] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C, D, E : Cast, F] Union6::from4(
-  value : E
+  value : E,
 ) -> Union6[A, B, C, D, E, F] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C, D, E, F : Cast] Union6::from5(
-  value : F
+  value : F,
 ) -> Union6[A, B, C, D, E, F] {
   Cast::from(value).cast()
 }
@@ -248,98 +248,98 @@ type Union7[_, _, _, _, _, _, _]
 
 ///|
 pub fn[A : Cast, B, C, D, E, F, G] Union7::to0(
-  self : Union7[A, B, C, D, E, F, G]
+  self : Union7[A, B, C, D, E, F, G],
 ) -> A? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B : Cast, C, D, E, F, G] Union7::to1(
-  self : Union7[A, B, C, D, E, F, G]
+  self : Union7[A, B, C, D, E, F, G],
 ) -> B? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C : Cast, D, E, F, G] Union7::to2(
-  self : Union7[A, B, C, D, E, F, G]
+  self : Union7[A, B, C, D, E, F, G],
 ) -> C? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C, D : Cast, E, F, G] Union7::to3(
-  self : Union7[A, B, C, D, E, F, G]
+  self : Union7[A, B, C, D, E, F, G],
 ) -> D? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C, D, E : Cast, F, G] Union7::to4(
-  self : Union7[A, B, C, D, E, F, G]
+  self : Union7[A, B, C, D, E, F, G],
 ) -> E? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C, D, E, F : Cast, G] Union7::to5(
-  self : Union7[A, B, C, D, E, F, G]
+  self : Union7[A, B, C, D, E, F, G],
 ) -> F? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C, D, E, F, G : Cast] Union7::to6(
-  self : Union7[A, B, C, D, E, F, G]
+  self : Union7[A, B, C, D, E, F, G],
 ) -> G? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A : Cast, B, C, D, E, F, G] Union7::from0(
-  value : A
+  value : A,
 ) -> Union7[A, B, C, D, E, F, G] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B : Cast, C, D, E, F, G] Union7::from1(
-  value : B
+  value : B,
 ) -> Union7[A, B, C, D, E, F, G] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C : Cast, D, E, F, G] Union7::from2(
-  value : C
+  value : C,
 ) -> Union7[A, B, C, D, E, F, G] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C, D : Cast, E, F, G] Union7::from3(
-  value : D
+  value : D,
 ) -> Union7[A, B, C, D, E, F, G] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C, D, E : Cast, F, G] Union7::from4(
-  value : E
+  value : E,
 ) -> Union7[A, B, C, D, E, F, G] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C, D, E, F : Cast, G] Union7::from5(
-  value : F
+  value : F,
 ) -> Union7[A, B, C, D, E, F, G] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C, D, E, F, G : Cast] Union7::from6(
-  value : G
+  value : G,
 ) -> Union7[A, B, C, D, E, F, G] {
   Cast::from(value).cast()
 }
@@ -350,112 +350,112 @@ type Union8[_, _, _, _, _, _, _, _]
 
 ///|
 pub fn[A : Cast, B, C, D, E, F, G, H] Union8::to0(
-  self : Union8[A, B, C, D, E, F, G, H]
+  self : Union8[A, B, C, D, E, F, G, H],
 ) -> A? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B : Cast, C, D, E, F, G, H] Union8::to1(
-  self : Union8[A, B, C, D, E, F, G, H]
+  self : Union8[A, B, C, D, E, F, G, H],
 ) -> B? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C : Cast, D, E, F, G, H] Union8::to2(
-  self : Union8[A, B, C, D, E, F, G, H]
+  self : Union8[A, B, C, D, E, F, G, H],
 ) -> C? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C, D : Cast, E, F, G, H] Union8::to3(
-  self : Union8[A, B, C, D, E, F, G, H]
+  self : Union8[A, B, C, D, E, F, G, H],
 ) -> D? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C, D, E : Cast, F, G, H] Union8::to4(
-  self : Union8[A, B, C, D, E, F, G, H]
+  self : Union8[A, B, C, D, E, F, G, H],
 ) -> E? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C, D, E, F : Cast, G, H] Union8::to5(
-  self : Union8[A, B, C, D, E, F, G, H]
+  self : Union8[A, B, C, D, E, F, G, H],
 ) -> F? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C, D, E, F, G : Cast, H] Union8::to6(
-  self : Union8[A, B, C, D, E, F, G, H]
+  self : Union8[A, B, C, D, E, F, G, H],
 ) -> G? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A, B, C, D, E, F, G, H : Cast] Union8::to7(
-  self : Union8[A, B, C, D, E, F, G, H]
+  self : Union8[A, B, C, D, E, F, G, H],
 ) -> H? {
   Cast::into(Value::cast_from(self))
 }
 
 ///|
 pub fn[A : Cast, B, C, D, E, F, G, H] Union8::from0(
-  value : A
+  value : A,
 ) -> Union8[A, B, C, D, E, F, G, H] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B : Cast, C, D, E, F, G, H] Union8::from1(
-  value : B
+  value : B,
 ) -> Union8[A, B, C, D, E, F, G, H] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C : Cast, D, E, F, G, H] Union8::from2(
-  value : C
+  value : C,
 ) -> Union8[A, B, C, D, E, F, G, H] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C, D : Cast, E, F, G, H] Union8::from3(
-  value : D
+  value : D,
 ) -> Union8[A, B, C, D, E, F, G, H] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C, D, E : Cast, F, G, H] Union8::from4(
-  value : E
+  value : E,
 ) -> Union8[A, B, C, D, E, F, G, H] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C, D, E, F : Cast, G, H] Union8::from5(
-  value : F
+  value : F,
 ) -> Union8[A, B, C, D, E, F, G, H] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C, D, E, F, G : Cast, H] Union8::from6(
-  value : G
+  value : G,
 ) -> Union8[A, B, C, D, E, F, G, H] {
   Cast::from(value).cast()
 }
 
 ///|
 pub fn[A, B, C, D, E, F, G, H : Cast] Union8::from7(
-  value : H
+  value : H,
 ) -> Union8[A, B, C, D, E, F, G, H] {
   Cast::from(value).cast()
 }
