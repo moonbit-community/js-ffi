@@ -78,7 +78,7 @@ async fn async_all_raw(
 
 ///|
 pub fn async_test(op : async () -> Unit raise) -> Unit {
-  async_run(async fn() {
+  async_run(async fn() noraise {
     op() catch {
       e => {
         println("ERROR in `async_test`: \{e}")
