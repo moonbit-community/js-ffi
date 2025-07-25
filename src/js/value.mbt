@@ -130,7 +130,7 @@ pub fn Value::from_json(json : Json) -> Value raise {
 pub impl @json.FromJson for Value with from_json(json : Json, path) {
   match json {
     String(s) => Value::cast_from(s)
-    Number(n) => Value::cast_from(n)
+    Number(n, ..) => Value::cast_from(n)
     False => Value::cast_from(false)
     True => Value::cast_from(true)
     Null => Value::null()

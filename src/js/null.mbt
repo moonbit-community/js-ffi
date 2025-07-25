@@ -32,5 +32,5 @@ pub fn[T] Nullable::null() -> Nullable[T] {
 
 ///|
 pub fn[T] Nullable::from_option(value : T?) -> Nullable[T] {
-  value.map(Value::cast_from).or_else(Value::null).cast()
+  value.map(Value::cast_from).unwrap_or_else(Value::null).cast()
 }
