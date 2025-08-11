@@ -18,18 +18,19 @@ let globalThis : Value
 
 let iterator : Symbol
 
-fn require(String, keys~ : Array[String] = ..) -> Value
+fn require(String, keys? : Array[String]) -> Value
 
 fn[T, E : Error] spawn_detach(async () -> T raise E) -> Unit
 
 async fn[T, E : Error] suspend(((T) -> Unit, (E) -> Unit) -> Unit) -> T raise E
 
-// Types and methods
+// Errors
 pub suberror Error_ Value
 fn Error_::cause(Self) -> Value?
-fn[T] Error_::wrap(() -> Value, map_ok~ : (Value) -> T = ..) -> T raise Self
+fn[T] Error_::wrap(() -> Value, map_ok? : (Value) -> T) -> T raise Self
 impl Show for Error_
 
+// Types and methods
 type Nullable[_]
 fn[T] Nullable::from_option(T?) -> Self[T]
 #deprecated
@@ -39,7 +40,7 @@ fn[T] Nullable::null() -> Self[T]
 fn[T] Nullable::to_option(Self[T]) -> T?
 fn[T] Nullable::unwrap(Self[T]) -> T
 
-pub type Object Value
+pub struct Object(Value)
 fn[K, V] Object::extend_iter(Self, Iter[(K, V)]) -> Unit
 fn[K, V] Object::extend_iter2(Self, Iter2[K, V]) -> Unit
 fn Object::extend_object(Self, Self) -> Self
