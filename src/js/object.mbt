@@ -1,5 +1,5 @@
 ///|
-pub type Object Value
+pub struct Object(Value)
 
 ///|
 pub extern "js" fn Object::new() -> Object = "() => new Object()"
