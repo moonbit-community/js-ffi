@@ -17,7 +17,7 @@ pub fn[T] Optional::unwrap(self : Self[T]) -> T {
   if self.is_undefined() {
     abort("Cannot unwrap an undefined value")
   }
-  self.get_exn()
+  self.unwrap()
 }
 
 ///|
@@ -25,7 +25,7 @@ pub fn[T] Optional::to_option(self : Optional[T]) -> T? {
   if Value::cast_from(self).is_undefined() {
     None
   } else {
-    Some(self.get_exn())
+    Some(self.unwrap())
   }
 }
 

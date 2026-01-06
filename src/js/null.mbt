@@ -17,13 +17,13 @@ pub fn[T] Nullable::unwrap(self : Nullable[T]) -> T {
   if self.is_null() {
     abort("Cannot unwrap a null value")
   }
-  self.get_exn()
+  self.unwrap()
 }
 
 ///|
 pub fn[T] Nullable::to_option(self : Nullable[T]) -> T? {
   guard not(Value::cast_from(self).is_null()) else { None }
-  Some(self.get_exn())
+  Some(self.unwrap())
 }
 
 ///|
