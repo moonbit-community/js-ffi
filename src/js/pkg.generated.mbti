@@ -25,7 +25,9 @@ pub fn[T, E : Error] spawn_detach(async () -> T raise E) -> Unit
 pub async fn[T, E : Error] suspend(((T) -> Unit, (E) -> Unit) -> Unit) -> T raise E
 
 // Errors
-pub suberror Error_ Value
+pub suberror Error_ {
+  Error_(Value)
+}
 pub fn Error_::cause(Self) -> Value?
 pub fn[T] Error_::wrap(() -> Value, map_ok? : (Value) -> T) -> T raise Self
 pub impl Show for Error_

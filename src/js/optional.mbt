@@ -12,12 +12,15 @@ pub fn[T] Optional::is_undefined(self : Optional[T]) -> Bool {
 pub fn[T] Optional::get_exn(self : Optional[T]) -> T = "%identity"
 
 ///|
+fn[T] Optional::get_exn_internal(self : Optional[T]) -> T = "%identity"
+
+///|
 /// Unwraps the optional value, panicking if it is undefined.
 pub fn[T] Optional::unwrap(self : Self[T]) -> T {
   if self.is_undefined() {
     abort("Cannot unwrap an undefined value")
   }
-  self.unwrap()
+  self.get_exn_internal()
 }
 
 ///|
