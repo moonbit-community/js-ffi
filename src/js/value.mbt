@@ -295,9 +295,9 @@ pub extern "js" fn Value::extends(
 ///|
 /// `key in self`
 pub extern "js" fn Value::has(self : Value, key : String) -> Bool =
-  #| (obj, key) => key in obj
+  #| (obj, key) => Object.is(typeof obj, "object") && key in obj
 
 ///|
 /// `key in self`
 pub extern "js" fn Value::has_symbol(self : Value, key : Symbol) -> Bool =
-  #| (obj, key) => key in obj
+  #| (obj, key) => Object.is(typeof obj, "object") && key in obj
