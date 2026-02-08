@@ -56,6 +56,12 @@ pub fn[Arg, Result] Value::apply(self : Value, args : Array[Arg]) -> Result {
 }
 
 ///|
+/// `self()`
+pub fn[Result] Value::apply0(self : Value) -> Result {
+  self.apply0_self_ffi().cast()
+}
+
+///|
 /// `self[key](...args)`
 pub fn[Arg, Result] Value::apply_with_string(
   self : Value,
@@ -63,6 +69,24 @@ pub fn[Arg, Result] Value::apply_with_string(
   args : Array[Arg],
 ) -> Result {
   self.apply_ffi(Value::cast_from(key), Value::cast_from(args)).cast()
+}
+
+///|
+/// `self[key]()`
+pub fn[Result] Value::apply0_with_string(self : Value, key : String) -> Result {
+  self.apply0_ffi(Value::cast_from(key)).cast()
+}
+
+///|
+/// `self[key]()`
+pub fn[Result] Value::apply0_with_symbol(self : Value, key : Symbol) -> Result {
+  self.apply0_ffi(Value::cast_from(key)).cast()
+}
+
+///|
+/// `self[index]()`
+pub fn[Result] Value::apply0_with_index(self : Value, index : Int) -> Result {
+  self.apply0_ffi(Value::cast_from(index)).cast()
 }
 
 ///|
@@ -202,6 +226,10 @@ pub extern "js" fn Value::is_symbol(self : Value) -> Bool =
   #| (n) => Object.is(typeof n, "symbol")
 
 ///|
+pub extern "js" fn Value::is_function(self : Value) -> Bool =
+  #| (n) => Object.is(typeof n, "function")
+
+///|
 extern "js" fn get_globalThis() -> Value =
   #| () => globalThis
 
@@ -222,8 +250,16 @@ extern "js" fn Value::apply_ffi(
   #| (self, key, args) => self[key](...args)
 
 ///|
+extern "js" fn Value::apply0_ffi(self : Value, key : Value) -> Value =
+  #| (self, key) => self[key]()
+
+///|
 extern "js" fn Value::apply_self_ffi(self : Value, args : Value) -> Value =
   #| (self, args) => self(...args)
+
+///|
+extern "js" fn Value::apply0_self_ffi(self : Value) -> Value =
+  #| (self) => self()
 
 ///|
 extern "js" fn Value::new_ffi(self : Value, key : Value, args : Value) -> Value =
@@ -255,3 +291,13 @@ pub extern "js" fn Value::extends(
   #|    }
   #|  }
   #|}
+
+///|
+/// `key in self`
+pub extern "js" fn Value::has(self : Value, key : String) -> Bool =
+  #| (obj, key) => Object.is(typeof obj, "object") && key in obj
+
+///|
+/// `key in self`
+pub extern "js" fn Value::has_symbol(self : Value, key : Symbol) -> Bool =
+  #| (obj, key) => Object.is(typeof obj, "object") && key in obj
