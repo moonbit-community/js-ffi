@@ -226,6 +226,10 @@ pub extern "js" fn Value::is_symbol(self : Value) -> Bool =
   #| (n) => Object.is(typeof n, "symbol")
 
 ///|
+pub extern "js" fn Value::is_function(self : Value) -> Bool =
+  #| (n) => Object.is(typeof n, "function")
+
+///|
 extern "js" fn get_globalThis() -> Value =
   #| () => globalThis
 
