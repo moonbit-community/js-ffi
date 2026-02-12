@@ -8,11 +8,8 @@ pub fn[T] Optional::is_undefined(self : Optional[T]) -> Bool {
 }
 
 ///|
-#deprecated("get_exn does not check for undefined values. Use unwrap instead")
+#deprecated("get_exn does not check for undefined values. Use unwrap instead", skip_current_package=true)
 pub fn[T] Optional::get_exn(self : Optional[T]) -> T = "%identity"
-
-///|
-fn[T] Optional::get_exn_internal(self : Optional[T]) -> T = "%identity"
 
 ///|
 /// Unwraps the optional value, panicking if it is undefined.
@@ -20,15 +17,15 @@ pub fn[T] Optional::unwrap(self : Self[T]) -> T {
   if self.is_undefined() {
     abort("Cannot unwrap an undefined value")
   }
-  self.get_exn_internal()
+  self.get_exn()
 }
 
 ///|
 pub fn[T] Optional::to_option(self : Optional[T]) -> T? {
-  if Value::cast_from(self).is_undefined() {
+  if self.is_undefined() {
     None
   } else {
-    Some(self.unwrap())
+    Some(self.get_exn())
   }
 }
 
