@@ -40,7 +40,7 @@ pub async fn Promise::wait(self : Promise) -> Value {
 ///
 /// If you don't care about the result of the operation, you can use `spawn_detach` instead.
 pub fn[T] Promise::unsafe_new(op : async () -> T) -> Promise {
-  Promise::new_ffi(fn() { Value::cast_from(op()) })
+  Promise::new_ffi(async fn() { Value::cast_from(op()) })
 }
 
 ///|
@@ -49,7 +49,7 @@ extern "js" fn Promise::new_ffi(op : async () -> Value) -> Promise =
 
 ///|
 pub fn[T, E : Error] spawn_detach(op : async () -> T raise E) -> Unit {
-  async_run(fn() {
+  async_run(async fn() noraise {
     try op() |> ignore catch {
       _ => ()
     }
