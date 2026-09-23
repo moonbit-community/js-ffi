@@ -10,12 +10,12 @@ extern "js" fn Error_::cause_ffi(self : Value) -> Value = "(self) => self.cause"
 pub fn Error_::cause(self : Error_) -> Value? {
   let Error_(inner) = self
   let cause = Error_::cause_ffi(inner)
-  guard not(cause.is_undefined()) else { None }
+  guard !cause.is_undefined() else { None }
   Some(cause.cast())
 }
 
 ///|
-pub impl Show for Error_ with output(self, logger) {
+pub impl Show for Error_ with fn output(self, logger) {
   logger.write_string("@js.Error: ")
   let Error_(inner) = self
   logger.write_object(inner)
@@ -23,6 +23,9 @@ pub impl Show for Error_ with output(self, logger) {
   logger.write_string("\n  caused by:\n")
   logger.write_object(cause_inner)
 }
+
+///|
+pub extend Error_ with Show::{to_string, output}
 
 ///|
 extern "js" fn Error_::wrap_ffi(

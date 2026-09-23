@@ -40,7 +40,7 @@ pub async fn Promise::wait(self : Promise) -> Value {
 ///
 /// If you don't care about the result of the operation, you can use `spawn_detach` instead.
 pub fn[T] Promise::unsafe_new(op : async () -> T) -> Promise {
-  Promise::new_ffi(fn() { Value::cast_from(op()) })
+  Promise::new_ffi(async fn() { Value::cast_from(op()) })
 }
 
 ///|
@@ -49,7 +49,7 @@ extern "js" fn Promise::new_ffi(op : async () -> Value) -> Promise =
 
 ///|
 pub fn[T, E : Error] spawn_detach(op : async () -> T raise E) -> Unit {
-  async_run(fn() {
+  async_run(async fn() noraise {
     try op() |> ignore catch {
       _ => ()
     }
@@ -59,7 +59,12 @@ pub fn[T, E : Error] spawn_detach(op : async () -> T raise E) -> Unit {
 ///|
 /// # Note
 /// The return type is guaranteed to be a `Promise` of an `Array`, but we omit that detail for simplicity.
-pub extern "js" fn Promise::all(promises : Array[Promise]) -> Promise = "(ps) => Promise.all(ps)"
+pub fn Promise::all(promises : Array[Promise]) -> Promise {
+  Promise::all_ffi(FixedArray::from_array(promises[:]))
+}
+
+///|
+extern "js" fn Promise::all_ffi(promises : FixedArray[Promise]) -> Promise = "(ps) => Promise.all(ps)"
 
 ///|
 /// Wraps each given `async fn` in a `Promise` and waits for all of them to resolve.
@@ -71,7 +76,9 @@ pub async fn[T] async_all(ops : Array[async () -> T]) -> Array[T] {
 
 ///|
 async fn async_all_raw(ops : Array[async () -> Value]) -> Array[Value] {
-  Promise::all(ops.map(Promise::unsafe_new)).wait().cast()
+  Array::from_fixed_array(
+    Promise::all(ops.map(Promise::unsafe_new)).wait().cast(),
+  )
 }
 
 ///|
