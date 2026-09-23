@@ -33,3 +33,24 @@ test "async_all" {
     ])
   })
 }
+
+///|
+test "async_all returns a growable empty array" {
+  @js.async_test(async fn() {
+    let ops : Array[async () -> Int] = []
+    let values = @js.async_all(ops)
+    assert_eq(values.length(), 0)
+    values.push(7)
+    assert_eq(values, [7])
+  })
+}
+
+///|
+test "async_all preserves nested MoonBit values and ordering" {
+  @js.async_test(async fn() {
+    let values = @js.async_all([fn() { [1, 2] }, fn() { [] }, fn() { [3] }])
+    assert_eq(values, [[1, 2], [], [3]])
+    values.push([4])
+    assert_eq(values, [[1, 2], [], [3], [4]])
+  })
+}

@@ -59,7 +59,12 @@ pub fn[T, E : Error] spawn_detach(op : async () -> T raise E) -> Unit {
 ///|
 /// # Note
 /// The return type is guaranteed to be a `Promise` of an `Array`, but we omit that detail for simplicity.
-pub extern "js" fn Promise::all(promises : Array[Promise]) -> Promise = "(ps) => Promise.all(ps)"
+pub fn Promise::all(promises : Array[Promise]) -> Promise {
+  Promise::all_ffi(FixedArray::from_array(promises[:]))
+}
+
+///|
+extern "js" fn Promise::all_ffi(promises : FixedArray[Promise]) -> Promise = "(ps) => Promise.all(ps)"
 
 ///|
 /// Wraps each given `async fn` in a `Promise` and waits for all of them to resolve.
@@ -71,7 +76,9 @@ pub async fn[T] async_all(ops : Array[async () -> T]) -> Array[T] {
 
 ///|
 async fn async_all_raw(ops : Array[async () -> Value]) -> Array[Value] {
-  Promise::all(ops.map(Promise::unsafe_new)).wait().cast()
+  Array::from_fixed_array(
+    Promise::all(ops.map(Promise::unsafe_new)).wait().cast(),
+  )
 }
 
 ///|
