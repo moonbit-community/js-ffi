@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         os:
           - name: ubuntu-latest
@@ -16,7 +17,6 @@ jobs:
           - name: windows-latest
 
     runs-on: ${{ matrix.os.name }}
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 

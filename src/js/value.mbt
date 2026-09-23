@@ -17,6 +17,9 @@ pub impl Show for Value with fn output(self, logger) {
 }
 
 ///|
+pub extend Value with Show::{output}
+
+///|
 pub let globalThis : Value = get_globalThis()
 
 ///|
@@ -135,7 +138,7 @@ pub impl @json.FromJson for Value with fn from_json(json : Json, path) {
     True => Value::cast_from(true)
     Null => Value::null()
     Array(xs) => {
-      let acc = Array::new(capacity=xs.length())
+      let acc = Array(capacity=xs.length())
       for x in xs {
         acc.push((@json.from_json(x, path~) : Value))
       }

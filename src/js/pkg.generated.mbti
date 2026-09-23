@@ -29,6 +29,8 @@ pub suberror Error_ {
   Error_(Value)
 }
 pub fn Error_::cause(Self) -> Value?
+pub fn Error_::output(Self, &Logger) -> Unit
+pub fn Error_::to_string(Self) -> String
 pub fn[T] Error_::wrap(() -> Value, map_ok? : (Value) -> T) -> T raise Self
 pub impl Show for Error_
 
@@ -50,11 +52,11 @@ pub fn[K, V] Object::from_iter(Iter[(K, V)]) -> Self
 pub fn[K, V] Object::from_iter2(Iter2[K, V]) -> Self
 pub fn Object::from_value(Value) -> Optional[Self]
 pub fn Object::from_value_unchecked(Value) -> Self
-#deprecated
-pub fn Object::inner(Self) -> Value
+#alias("_[_]")
+pub fn[K, V] Object::get(Self, K) -> V
 pub fn Object::new() -> Self
-pub fn[K, V] Object::op_get(Self, K) -> V
-pub fn[K, V] Object::op_set(Self, K, V) -> Unit
+#alias("_[_]=_")
+pub fn[K, V] Object::set(Self, K, V) -> Unit
 pub fn Object::to_value(Self) -> Value
 
 type Optional[_]
@@ -187,6 +189,7 @@ pub fn[Arg, Result] Value::new(Self, Array[Arg]) -> Result
 pub fn[Arg, Result] Value::new_with_index(Self, Int, Array[Arg]) -> Result
 pub fn[Arg, Result] Value::new_with_string(Self, String, Array[Arg]) -> Result
 pub fn[Arg, Result] Value::new_with_symbol(Self, Symbol, Array[Arg]) -> Result
+pub fn Value::output(Self, &Logger) -> Unit
 pub fn[T] Value::set_with_index(Self, Int, T) -> Unit
 pub fn[T] Value::set_with_string(Self, String, T) -> Unit
 pub fn[T] Value::set_with_symbol(Self, Symbol, T) -> Unit
@@ -200,12 +203,11 @@ pub impl @json.FromJson for Value
 
 // Traits
 pub(open) trait Cast {
-  into(Value) -> Self?
-  from(Self) -> Value
+  fn into(Value) -> Self?
+  fn from(Self) -> Value
 }
 pub impl Cast for Bool
 pub impl Cast for Int
 pub impl Cast for Double
 pub impl Cast for String
 pub impl[A : Cast] Cast for Array[A]
-
