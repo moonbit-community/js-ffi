@@ -1,0 +1,17 @@
+name = "moonbit-community/js-ffi"
+
+version = "0.4.2"
+
+readme = "README.md"
+
+repository = "https://github.com/moonbit-community/js-ffi"
+
+license = "Apache-2.0"
+
+keywords = [ ]
+
+description = ""
+
+source = "src"
+
+preferred_target = "js"
