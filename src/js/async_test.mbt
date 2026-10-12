@@ -37,7 +37,7 @@ test "async_all" {
 ///|
 test "async_all returns a growable empty array" {
   @js.async_test(async fn() {
-    let ops : Array[async () -> Int] = []
+    let ops : Array[async () -> Int32] = []
     let values = @js.async_all(ops)
     assert_eq(values.length(), 0)
     values.push(7)

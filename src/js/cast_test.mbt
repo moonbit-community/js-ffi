@@ -1,8 +1,8 @@
 ///|
 test "Cast arrays accepts empty and populated JavaScript arrays" {
-  let empty : Array[Int]? = @js.Cast::into(@js.Value::from_json_string("[]"))
+  let empty : Array[Int32]? = @js.Cast::into(@js.Value::from_json_string("[]"))
   assert_eq(empty, Some([]))
-  let values : Array[Int]? = @js.Cast::into(
+  let values : Array[Int32]? = @js.Cast::into(
     @js.Value::from_json_string("[1, 2, 3]"),
   )
   assert_eq(values, Some([1, 2, 3]))
@@ -11,7 +11,7 @@ test "Cast arrays accepts empty and populated JavaScript arrays" {
 ///|
 test "Cast arrays rejects non-arrays and invalid elements" {
   for input in ["null", "{}", "42", "[1, false]", "[1, 1.5]"] {
-    let values : Array[Int]? = @js.Cast::into(
+    let values : Array[Int32]? = @js.Cast::into(
       @js.Value::from_json_string(input),
     )
     assert_eq(values, None)
@@ -20,12 +20,12 @@ test "Cast arrays rejects non-arrays and invalid elements" {
 
 ///|
 test "Cast nested arrays converts in both directions" {
-  let values : Array[Array[Int]] = [[1, 2], [], [3]]
+  let values : Array[Array[Int32]] = [[1, 2], [], [3]]
   let raw = @js.Cast::from(values)
   assert_eq(raw.to_json_string(), "[[1,2],[],[3]]")
-  let decoded : Array[Array[Int]]? = @js.Cast::into(raw)
+  let decoded : Array[Array[Int32]]? = @js.Cast::into(raw)
   assert_eq(decoded, Some(values))
-  let invalid : Array[Array[Int]]? = @js.Cast::into(
+  let invalid : Array[Array[Int32]]? = @js.Cast::into(
     @js.Value::from_json_string("[[1], [false]]"),
   )
   assert_eq(invalid, None)
@@ -33,12 +33,12 @@ test "Cast nested arrays converts in both directions" {
 
 ///|
 priv struct DecodedInt {
-  value : Int
+  value : Int32
 }
 
 ///|
 impl @js.Cast for DecodedInt with fn into(raw) {
-  let value : Int? = @js.Cast::into(raw)
+  let value : Int32? = @js.Cast::into(raw)
   value.map(fn(value) { { value, } })
 }
 

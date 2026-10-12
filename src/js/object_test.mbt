@@ -18,23 +18,23 @@ test "Object::extend_object" {
 test "Object indexing preserves named accessors" {
   let obj = @js.Object::new()
   obj["value"] = 42
-  let indexed : Int = obj["value"]
-  let named : Int = obj.get("value")
+  let indexed : Int32 = obj["value"]
+  let named : Int32 = obj.get("value")
   assert_eq(indexed, 42)
   assert_eq(named, 42)
   obj.set("value", 7)
-  let updated : Int = obj["value"]
+  let updated : Int32 = obj["value"]
   assert_eq(updated, 7)
 }
 
 ///|
 test "Object constructors preserve iterator entries" {
   let from_iter = @js.Object::from_iter([("first", 1), ("second", 2)].iter())
-  let entries : Map[String, Int] = { "first": 1, "second": 2 }
+  let entries : Map[String, Int32] = { "first": 1, "second": 2 }
   let from_iter2 = @js.Object::from_iter2(entries.iter2())
   for obj in [from_iter, from_iter2] {
-    let first : Int = obj["first"]
-    let second : Int = obj["second"]
+    let first : Int32 = obj["first"]
+    let second : Int32 = obj["second"]
     assert_eq(first, 1)
     assert_eq(second, 2)
   }
